@@ -50,6 +50,12 @@ Posts.prototype.createPanels = function(posts){
     this.panels.push(panel);
 
     this.created = true;
+
+
+    G.objectControls.add(panel);
+    panel.select =function(){
+      console.log('Yaaa');
+    }
     
 
 

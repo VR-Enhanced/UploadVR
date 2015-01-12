@@ -2,9 +2,9 @@ var CustomControls;
 
 CustomControls = (function() {
   function CustomControls() {
-    this.controls = new THREE.PointerLockControls(camera);
-    scene.add(this.controls.getObject());
-    var self = this;
+    G.controls = new THREE.PointerLockControls(camera);
+    scene.add(G.controls.getObject());
+    var self = G;
     document.addEventListener('click', function(event) {
       if(self.controls.enabled){
         return
@@ -16,7 +16,7 @@ CustomControls = (function() {
         pointerLockChange = (function(_this) {
           return function(event) {
             if (document.pointerLockElement = element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
-              self.controls.enabled = !self.controls.enabled;
+              G.controls.enabled = !self.controls.enabled;
             }
           };
         })(this);
@@ -34,7 +34,7 @@ CustomControls = (function() {
   }
 
   CustomControls.prototype.update = function() {
-    this.controls.update();
+    G.controls.update();
   };
 
   return CustomControls;

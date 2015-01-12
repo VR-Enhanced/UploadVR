@@ -29,6 +29,7 @@ $(document).ready(function() {
 		//Apply VR Headset positional data to camera
 		vrControls = new THREE.VRControls(camera);
 		customControls = new CustomControls();
+		G.objectControls = new ObjectControls(camera);
 
 		effect = new THREE.VREffect(renderer, function(msg) {
 			console.log(msg)
@@ -77,6 +78,7 @@ $(document).ready(function() {
 		cssRenderer.render(scene, camera);
 		customControls.update();
 		vrControls.update();
+		G.objectControls.update();
 
 	}
 
