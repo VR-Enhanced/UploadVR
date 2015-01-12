@@ -4,6 +4,12 @@
 	var oceanSize = 20000;
 	var timeInc = 1 / 60;
 
+TWEEN.origTween = TWEEN.Tween;
+TWEEN.Tween = function(options) {
+  return new TWEEN.origTween(options).
+  easing(TWEEN.Easing.Cubic.InOut);
+};
+
 $(document).ready(function() {
 
 
@@ -78,7 +84,9 @@ $(document).ready(function() {
 		cssRenderer.render(scene, camera);
 		customControls.update();
 		vrControls.update();
+		posts.update();
 		G.objectControls.update();
+		TWEEN.update();
 
 	}
 

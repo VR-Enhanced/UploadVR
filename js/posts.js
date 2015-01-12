@@ -1,5 +1,6 @@
 function Posts(){
   this.panels = [];
+  this.distanceFromUser = 50;
   $.ajax({
 
     url: 'posts/posts.json',
@@ -54,8 +55,8 @@ Posts.prototype.createPanels = function(posts){
 
     G.objectControls.add(panel);
     panel.select =function(){
-      console.log('Yaaa');
-    }
+      this.flyIn(panel);
+    }.bind(this);
     
 
 
@@ -65,11 +66,38 @@ Posts.prototype.createPanels = function(posts){
 
 }
 
+Posts.prototype.flyIn = function(panel){
+  var fakeObject = new THREE.Object3D();
+  var target = G.controls.getObject().position.clone();
+  var direction = G.controls.getDirection();
+  fakeObject.translateZ(direction.z * this.distanceFromUser)
+  fakeObject.translateY(direction.y * this.distanceFromUser)
+  fakeObject.translateX(direction.x * this.distanceFromUser)
+  var i = {
+    x: panel.position.x,
+    z: panel.position.z
+  }
+
+  var f = {
+    x: fakeObject.position.x,
+    z: fakeObject.position.z
+  }
+  var posTween = new TWEEN.Tween(i).
+    to(f, 3000).
+    onUpdate(function(){
+      panel.position.set(i.x, panel.position.y, i.z);
+      console.log(panel.position, 'yaa')
+    }).start();
+
+}
+
 
 Posts.prototype.update = function(){
   if(!this.created){
     return;
   }
+  var target = G.controls.getObject().position.clone();
+  G.controls.getDirection();
   // this.panels[0].position.z -=1
 
 
