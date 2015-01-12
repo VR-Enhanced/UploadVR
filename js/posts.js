@@ -18,7 +18,7 @@ function Posts(){
 
 Posts.prototype.createPanels = function(posts){
     var scale = 8;
-    var geo = new THREE.PlaneBufferGeometry(200, 200)
+    var geo = new THREE.PlaneBufferGeometry(190, 200)
     var mat = new THREE.MeshBasicMaterial({
       color: 0xff00ff,
       transparent: true,
