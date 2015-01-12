@@ -2,11 +2,30 @@ body{
     margin: 0;
 }
 
-.panel{
-    /*display: none;*/
+.post{
+    overflow: scroll;
     width: 800px;
     height: 810px;
+}
+
+.title{
+    font-size: 60px;
+    font-weight: bold
+}
+
+.content{
     font-size: 50px;
     overflow: scroll;
-    
+}
+
+#cursor{
+  z-index: 100;
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  border:solid 4px;
+  border-color: #f00;
 }

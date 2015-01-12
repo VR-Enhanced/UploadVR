@@ -6,6 +6,9 @@ CustomControls = (function() {
     scene.add(this.controls.getObject());
     var self = this;
     document.addEventListener('click', function(event) {
+      if(self.controls.enabled){
+        return
+      }
       var element, havePointerLock, pointerLockChange;
       havePointerLock = "pointerLockElement" in document || "mozPointerLockElement" in document || "webkitPointerLockElement" in document;
       if (havePointerLock) {
@@ -22,12 +25,10 @@ CustomControls = (function() {
       }
       document.addEventListener('pointerlockchange', function() {
         pointerLockChange();
-        return false;
       });
       document.addEventListener('mozpointerlockchange', pointerLockChange, false);
       return document.addEventListener('webkitpointerlockchange', function() {
         pointerLockChange();
-        return false;
       });
     });
   }
