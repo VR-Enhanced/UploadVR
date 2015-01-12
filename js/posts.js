@@ -45,7 +45,7 @@ Posts.prototype.createPanels = function(posts){
     innerPanel.html = $post[0];
     innerPanel.content = new THREE.CSS3DObject(innerPanel.html);
     innerPanel.content.scale.set(0.2, 0.2, 1);
-    innerPanel.content.position.z = -40
+    innerPanel.content.position.z = -43.5
     innerPanel.add(innerPanel.content);
     this.panels.push(panel);
 
