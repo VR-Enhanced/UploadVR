@@ -13,7 +13,7 @@ CustomControls = (function() {
         pointerLockChange = (function(_this) {
           return function(event) {
             if (document.pointerLockElement = element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
-              self.controls.enabled = true;
+              self.controls.enabled = !self.controls.enabled;
             }
           };
         })(this);

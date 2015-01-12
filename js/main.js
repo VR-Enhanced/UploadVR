@@ -1,5 +1,6 @@
-var scene, renderer, camera, vrControls, customControls, container, effect;
+var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect;
 var water, mirrorMesh, waterNormals;
+var posts;
 var oceanSize = 20000;
 var timeInc = 1/60;
 
@@ -16,6 +17,7 @@ function init() {
 	scene = new THREE.Scene();
 	renderer = new THREE.WebGLRenderer({antialias: true});
 	renderer.setClearColor(0x00416e)
+	renderer.domElement.style.position = "fixed";
 	document.body.appendChild(renderer.domElement);
 
 
@@ -26,7 +28,10 @@ function init() {
 	effect = new THREE.VREffect(renderer, function(msg){
 		console.log(msg)
 	});
-	effect.setSize(window.innerWidth, window.innerHeight);
+
+	cssRenderer = new THREE.CSS3DRenderer();
+	cssRenderer.domElement.style.position = 'fixed';
+	document.body.appendChild(cssRenderer.domElement);
 
 
 	waterNormals = new THREE.ImageUtils.loadTexture('img/waternormals.jpg');
@@ -50,6 +55,8 @@ function init() {
 	mirrorMesh.add(water);
 	mirrorMesh.rotation.x = -Math.PI * 0.5;
 	scene.add(mirrorMesh);
+
+	posts = new Posts();
 }
 
 function animate() {
@@ -58,8 +65,10 @@ function animate() {
 	water.material.uniforms.time.value += timeInc;
 	water.render();
 	effect.render(scene, camera);
+	cssRenderer.render(scene, camera);
 	customControls.update();
 	vrControls.update();
+	posts.update();
 
 }
 
@@ -67,10 +76,14 @@ function onResize() {
 	camera.aspect = window.innerWidth/window.innerHeight;
 	camera.updateProjectionMatrix();
 	effect.setSize(window.innerWidth, window.innerHeight);
+	cssRenderer.setSize(window.innerWidth, window.innerHeight);
 
 }
-
-window.addEventListener('resize', onResize, false);
+window.onload = function(){
+  window.addEventListener('resize', onResize, false);
+  onResize();
+	
+}
 
 
 
