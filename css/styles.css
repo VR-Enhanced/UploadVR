@@ -18,14 +18,3 @@ body{
     overflow: scroll;
 }
 
-#cursor{
-  z-index: 100;
-  position:absolute;
-  left: 50%;
-  top: 50%;
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  border:solid 4px;
-  border-color: #f00;
-}

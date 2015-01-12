@@ -1,5 +1,5 @@
 function Posts(){
-  var panels = [];
+  this.panels = [];
   $.ajax({
 
     url: 'posts/posts.json',
@@ -36,16 +36,24 @@ Posts.prototype.createPanels = function(posts){
       $content.append($paragraph)
     });
     
-    var panelContainer = new THREE.Mesh(geo, mat);
-    panelContainer.position.set(i * 300, 100, -500)
-    scene.add(panelContainer);
+    var panel = new THREE.Mesh(geo, mat);
+    scene.add(panel);
+    panel.position.set(i * 300, 100, -500);
 
-    var panel = new THREE.Object3D();
-    panelContainer.add(panel);
-    panel.html = $post[0];
-    panel.content = new THREE.CSS3DObject(panel.html);
-    panel.content.scale.set(0.2, 0.2, .2);
-    panel.add(panel.content);
+    var innerPanel = new THREE.Object3D();
+    panel.add(innerPanel);
+    innerPanel.html = $post[0];
+    innerPanel.content = new THREE.CSS3DObject(innerPanel.html);
+    innerPanel.content.scale.set(0.2, 0.2, 1);
+    innerPanel.content.position.z = -40
+    innerPanel.add(innerPanel.content);
+    this.panels.push(panel);
+
+    this.created = true;
+    
+
+
+
   }
 
 
@@ -53,6 +61,10 @@ Posts.prototype.createPanels = function(posts){
 
 
 Posts.prototype.update = function(){
+  if(!this.created){
+    return;
+  }
+  // this.panels[0].position.z -=1
 
 
 }
