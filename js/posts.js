@@ -17,6 +17,7 @@ function Posts(){
 }
 
 Posts.prototype.createPosts = function(posts){
+  G.totalPosts = posts.length;
   for(var i = 0; i < posts.length; i++){
     var post = posts[i];
     var $post = $('<div class = "post"><div class = "title"></div><div class="content"></div></div>');
@@ -27,7 +28,7 @@ Posts.prototype.createPosts = function(posts){
       $paragraph.text(paragraph);
       $content.append($paragraph)
     }); 
-   var post = new Post($post);
+   new Post($post, i);
   }
 }
 

@@ -1,5 +1,5 @@
-function Post($post) {
-
+function Post($post, index) {
+	this.radius  = 600;
 	var scale = 8;
 	var geo = new THREE.PlaneBufferGeometry(190, 200)
 	var mat = new THREE.MeshBasicMaterial({
@@ -7,11 +7,17 @@ function Post($post) {
 		transparent: true,
 		opacity: 0.7
 	});
-  this.distanceFromUser = 50;
+  this.distanceFromUser = 200;
 
 	this.panel = new THREE.Mesh(geo, mat);
 	scene.add(this.panel);
-	this.panel.position.set(G.rf(-1000, 1000), 100, -500);
+  var segment = index/G.totalPosts * (Math.PI * 2)
+  var x= Math.cos(segment) * this.radius;
+  var z = Math.sin(segment) * this.radius;
+  this.panel.position.set(x, 100, z);
+  this.panel.lookAt(new THREE.Vector3());
+
+	this.panel.myId = _.random(1, 1000);
 
 	var innerPanel = new THREE.Object3D();
 	this.panel.add(innerPanel);
@@ -26,6 +32,7 @@ function Post($post) {
 	G.objectControls.add(this.panel);
 	this.panel.select = function() {
 		this.flyIn(this.panel);
+		console.log(this.panel.myId);
 	}.bind(this);
 
 
