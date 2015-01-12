@@ -17,6 +17,7 @@ $(document).ready(function() {
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 20000);
 		camera.position.set(0, 10, 0);
 		scene = new THREE.Scene();
+		scene.add(camera);
 		renderer = new THREE.WebGLRenderer({
 			antialias: true
 		});
@@ -61,6 +62,10 @@ $(document).ready(function() {
 		scene.add(mirrorMesh);
 
 		posts = new Posts();
+
+		var cursor = new THREE.Mesh(new THREE.SphereGeometry(.01, 32));
+		cursor.translateZ(-2)
+		camera.add(cursor);
 	}
 
 	function animate() {
