@@ -1,92 +1,94 @@
-var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect;
-var water, mirrorMesh, waterNormals;
-var posts;
-var oceanSize = 20000;
-var timeInc = 1/60;
+	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect;
+	var water, mirrorMesh, waterNormals;
+	var posts;
+	var oceanSize = 20000;
+	var timeInc = 1 / 60;
+
+$(document).ready(function() {
 
 
 
-init()
-animate()
+	init();
+	animate();
 
-function init() {
-
-
-	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerWidth, 1, 20000);
-	camera.position.set(0, 10, 0);
-	scene = new THREE.Scene();
-	renderer = new THREE.WebGLRenderer({antialias: true});
-	renderer.setClearColor(0x00416e)
-	renderer.domElement.style.position = "fixed";
-	document.body.appendChild(renderer.domElement);
+	function init() {
 
 
-  //Apply VR Headset positional data to camera
-	vrControls = new THREE.VRControls(camera);
-	customControls = new CustomControls();
-
-	effect = new THREE.VREffect(renderer, function(msg){
-		console.log(msg)
-	});
-
-	cssRenderer = new THREE.CSS3DRenderer();
-	cssRenderer.domElement.style.position = 'fixed';
-	document.body.appendChild(cssRenderer.domElement);
+		camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerWidth, 1, 20000);
+		camera.position.set(0, 10, 0);
+		scene = new THREE.Scene();
+		renderer = new THREE.WebGLRenderer({
+			antialias: true
+		});
+		renderer.setClearColor(0x00416e)
+		renderer.domElement.style.position = "fixed";
+		document.body.appendChild(renderer.domElement);
 
 
-	waterNormals = new THREE.ImageUtils.loadTexture('img/waternormals.jpg');
-	waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+		//Apply VR Headset positional data to camera
+		vrControls = new THREE.VRControls(camera);
+		customControls = new CustomControls();
 
-	water = new THREE.Water(renderer, camera, scene, {
-		textureWidth: 512,
-		textureHeight: 512,
-		waterNormals: waterNormals,
-		alpha: 1.0,
+		effect = new THREE.VREffect(renderer, function(msg) {
+			console.log(msg)
+		});
 
-		waterColor: 0x001e0f,
-		distortionScale: 50.0,
-	});
-
-	mirrorMesh = new THREE.Mesh(
-		new THREE.PlaneBufferGeometry(oceanSize, oceanSize),
-		water.material
-	);
-
-	mirrorMesh.add(water);
-	mirrorMesh.rotation.x = -Math.PI * 0.5;
-	scene.add(mirrorMesh);
-
-	posts = new Posts();
-}
-
-function animate() {
-
-	requestAnimationFrame(animate);
-	water.material.uniforms.time.value += timeInc;
-	water.render();
-	effect.render(scene, camera);
-	cssRenderer.render(scene, camera);
-	customControls.update();
-	vrControls.update();
-	posts.update();
-
-}
-
-function onResize() {
-	camera.aspect = window.innerWidth/window.innerHeight;
-	camera.updateProjectionMatrix();
-	effect.setSize(window.innerWidth, window.innerHeight);
-	cssRenderer.setSize(window.innerWidth, window.innerHeight);
-
-}
-window.onload = function(){
-  window.addEventListener('resize', onResize, false);
-  onResize();
-	
-}
+		cssRenderer = new THREE.CSS3DRenderer();
+		cssRenderer.domElement.style.position = 'fixed';
+		document.body.appendChild(cssRenderer.domElement);
 
 
+		waterNormals = new THREE.ImageUtils.loadTexture('img/waternormals.jpg');
+		waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
 
-function map(value, min1, max1, min2, max2) {
-	return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
-}
+		water = new THREE.Water(renderer, camera, scene, {
+			textureWidth: 512,
+			textureHeight: 512,
+			waterNormals: waterNormals,
+			alpha: 1.0,
+
+			waterColor: 0x001e0f,
+			distortionScale: 50.0,
+		});
+
+		mirrorMesh = new THREE.Mesh(
+			new THREE.PlaneBufferGeometry(oceanSize, oceanSize),
+			water.material
+		);
+		mirrorMesh.renderDepth = 10
+		mirrorMesh.add(water);
+		mirrorMesh.rotation.x = -Math.PI * 0.5;
+		scene.add(mirrorMesh);
+
+		posts = new Posts();
+	}
+
+	function animate() {
+
+		requestAnimationFrame(animate);
+		water.material.uniforms.time.value += timeInc;
+		water.render();
+		effect.render(scene, camera);
+		cssRenderer.render(scene, camera);
+		customControls.update();
+		vrControls.update();
+
+	}
+
+	function onResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		effect.setSize(window.innerWidth, window.innerHeight);
+		cssRenderer.setSize(window.innerWidth, window.innerHeight);
+
+	}
+
+	window.addEventListener('resize', onResize, false);
+	onResize();
+
+
+
+	function map(value, min1, max1, min2, max2) {
+		return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
+	}
+})
