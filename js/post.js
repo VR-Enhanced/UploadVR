@@ -98,6 +98,14 @@ function Post(content) {
 
   scene.add(top);
 
+  function onMouseWheel(){
+    console.log('yaaa')
+    top.position.y +=1;
+  }
+
+  document.addEventListener( 'mousewheel', onMouseWheel, false );
+  document.addEventListener( 'DOMMouseScroll', onMouseWheel, false ); // firefox
+
 
 
 }
