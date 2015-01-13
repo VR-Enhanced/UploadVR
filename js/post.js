@@ -97,14 +97,13 @@ function Post(content) {
   book.doubleSided = true;
   book.position.set(0, 200, -500);
   top.add(book);
-  book.scale.set(10, 10, 1)
+  book.scale.set(10,10, 1)
   book.frustumCalled = false
 
   scene.add(top);
 
   function onMouseWheel(event){
-    console.log('yaaa')
-    top.position.y += 1;
+    top.position.y -= event.wheelDelta/10
     preventDefault(event);
   }
 
