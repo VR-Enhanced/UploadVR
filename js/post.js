@@ -4,7 +4,7 @@ function Post($post, index) {
 	var scale = 8;
 	var geo = new THREE.PlaneBufferGeometry(190, 200)
 	var mat = new THREE.MeshBasicMaterial({
-		color: 0xff00ff,
+		color: 0x000000,
 		transparent: true,
 		opacity: 0.7
 	});
