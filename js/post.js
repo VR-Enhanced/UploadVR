@@ -1,4 +1,4 @@
-function Post(content) {
+function Post(content, index) {
   var xSpace = 0.6;
   var fontSize = 64;
   var lettersPerSide = 16;
@@ -19,11 +19,13 @@ function Post(content) {
   var tex = new THREE.Texture(c);
   tex.flipY = false;
   tex.needsUpdate = true;
+  tex.anisotropy = renderer.getMaxAnisotropy()
+  console.log("anistropy", tex.anisotropy);
 
 
 
   var geo = new THREE.Geometry();
-  var str = BOOK;
+  var str = content;
 
   var j = 0,
     ln = 0;
@@ -95,7 +97,7 @@ function Post(content) {
     shaderMaterial
   );
   book.doubleSided = true;
-  book.position.set(0, 200, -500);
+  book.position.set(index * 800, 200, -500);
   top.add(book);
   book.scale.set(10,10, 1)
   book.frustumCalled = false
