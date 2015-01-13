@@ -40,7 +40,9 @@
 			G.objectControls = new ObjectControls(camera);
 
 			effect = new THREE.VREffect(renderer, function(msg) {
-				console.log(msg)
+				if(msg !== undefined){
+				  console.log(msg)
+				}
 			});
 
 			cssRenderer = new THREE.CSS3DRenderer();
@@ -72,8 +74,8 @@
 
 			posts = new Posts();
 
-			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.01, 32));
-			cursor.translateZ(-2)
+			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.05, 32));
+			cursor.translateZ(-5)
 			camera.add(cursor);
 		}
 
@@ -85,7 +87,6 @@
 			effect.render(scene, camera);
 			cssRenderer.render(scene, camera);
 			customControls.update();
-			G.objectControls.update();
 			TWEEN.update();
 
 		}

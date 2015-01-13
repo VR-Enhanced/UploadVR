@@ -32,8 +32,8 @@ function Post($post, index) {
 
 	G.objectControls.add(this.panel);
 	this.panel.select = function() {
+		console.log('select')		
 		this.flyIn(this.panel);
-		console.log(this.panel.myId);
 	}.bind(this);
 
 
@@ -41,7 +41,6 @@ function Post($post, index) {
 
 
 Post.prototype.flyIn = function() {
-	console.log('FLLYY')
 	this.fakeObject.position.copy(G.controls.getObject().position);
 	var direction = G.controls.getDirection();
 	this.fakeObject.translateZ(direction.z * this.distanceFromUser)

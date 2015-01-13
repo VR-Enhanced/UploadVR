@@ -30,6 +30,10 @@ Posts.prototype.createPosts = function(posts){
     }); 
    new Post($post, i);
   }
+
+
+
 }
+
 
 
