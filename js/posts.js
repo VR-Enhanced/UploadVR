@@ -32,7 +32,15 @@ Posts.prototype.createPosts = function(posts) {
     //we need to create one big string from this guy, with new lines and such
     post = posts[i];
     string = "";
-    string += post.title.toUpperCase() + '\n\n\n'
+    post.title = post.title.toUpperCase()
+    words = post.title.split(' ');
+    for(var j = 0; j < words.length; j++){
+      string += words[j] + " ";
+      if(j!== 0 && j % wordsPerLine === 0){
+        string+="\n";
+      }
+    }
+    string += '\n\n\n';
     _.each(post.paragraphs, function(paragraph) {
       words = paragraph.split(' ');
       for (var j = 0; j < words.length; j++) {
