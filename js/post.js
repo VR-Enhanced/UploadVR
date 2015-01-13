@@ -1,11 +1,12 @@
 function Post(content) {
-
+  var xSpace = 0.6;
   var fontSize = 64;
   var lettersPerSide = 16;
   var c = document.createElement('canvas');
   c.width = c.height = fontSize * lettersPerSide;
   var ctx = c.getContext('2d');
   ctx.font = fontSize + 'px Monospace';
+
   var i = 0;
 
   for (var y = 0; y < lettersPerSide; y++) {
@@ -29,14 +30,16 @@ function Post(content) {
 
   for (i = 0; i < str.length; i++) {
     var code = str.charCodeAt(i);
+
     var cx = code % lettersPerSide;
     var cy = Math.floor(code / lettersPerSide);
     var v, t;
+    var z = j*.1
     geo.vertices.push(
-      new THREE.Vector3(j * 1.1 + 0.05, ln * 1.1 + 0.05, 0),
-      new THREE.Vector3(j * 1.1 + 1.05, ln * 1.1 + 0.05, 0),
-      new THREE.Vector3(j * 1.1 + 1.05, ln * 1.1 + 1.05, 0),
-      new THREE.Vector3(j * 1.1 + 0.05, ln * 1.1 + 1.05, 0)
+      new THREE.Vector3(j * xSpace + 0.05, ln * 1.1 + 0.05, z),
+      new THREE.Vector3(j * xSpace + 1.05, ln * 1.1 + 0.05, z),
+      new THREE.Vector3(j * xSpace + 1.05, ln * 1.1 + 1.05, z),
+      new THREE.Vector3(j * xSpace + 0.05, ln * 1.1 + 1.05, z)
     );
     var face = new THREE.Face3(i * 4 + 0, i * 4 + 1, i * 4 + 2);
     geo.faces.push(face);
@@ -94,7 +97,8 @@ function Post(content) {
   book.doubleSided = true;
   book.position.set(0, 200, -500);
   top.add(book);
-  book.scale.set(5, 5, 1)
+  book.scale.set(10, 10, 1)
+  book.frustumCalled = false
 
   scene.add(top);
 
