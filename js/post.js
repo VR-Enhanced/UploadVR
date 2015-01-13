@@ -41,19 +41,16 @@ function Post($post, index) {
 
 
 Post.prototype.flyIn = function() {
-	this.fakeObject.position.copy(G.controls.getObject().position);
-	var direction = G.controls.getDirection();
-	this.fakeObject.translateZ(direction.z * this.distanceFromUser)
-	this.fakeObject.translateY(direction.y * this.distanceFromUser)
-	this.fakeObject.translateX(direction.x * this.distanceFromUser)
+
+
 	var i = {
 		x: this.panel.position.x,
 		z: this.panel.position.z
 	}
 
 	var f = {
-		x: this.fakeObject.position.x,
-		z: this.fakeObject.position.z
+		x: camera.position.x,
+		z: camera.position.z - 50
 	}
 	var posTween = new TWEEN.Tween(i).
 	to(f, 3000).
