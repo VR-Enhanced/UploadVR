@@ -1,4 +1,4 @@
-	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect;
+	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect, stats;
 	var water, mirrorMesh, waterNormals;
 	var posts;
 	var oceanSize = 20000;
@@ -34,14 +34,21 @@
 			renderer.domElement.style.position = "absolute";
 			document.body.appendChild(renderer.domElement);
 
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.left = '0px';
+			stats.domElement.style.top = '0px';
+
+			document.body.appendChild(stats.domElement);
+
 
 
 			customControls = new CustomControls();
 			G.objectControls = new ObjectControls(camera);
 
 			effect = new THREE.VREffect(renderer, function(msg) {
-				if(msg !== undefined){
-				  console.log(msg)
+				if (msg !== undefined) {
+					console.log(msg)
 				}
 			});
 
@@ -89,6 +96,7 @@
 			customControls.update();
 			G.objectControls.update();
 			TWEEN.update();
+			stats.update();
 		}
 
 		function onResize() {
