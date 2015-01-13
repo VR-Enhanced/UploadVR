@@ -34,7 +34,7 @@ function Post(content) {
     var cx = code % lettersPerSide;
     var cy = Math.floor(code / lettersPerSide);
     var v, t;
-    var z = j*.1
+    var z = j * .1
     geo.vertices.push(
       new THREE.Vector3(j * xSpace + 0.05, ln * 1.1 + 0.05, z),
       new THREE.Vector3(j * xSpace + 1.05, ln * 1.1 + 0.05, z),
@@ -102,13 +102,21 @@ function Post(content) {
 
   scene.add(top);
 
-  function onMouseWheel(){
+  function onMouseWheel(event){
     console.log('yaaa')
-    top.position.y +=1;
+    top.position.y += 1;
+    preventDefault(event);
   }
 
-  document.addEventListener( 'mousewheel', onMouseWheel, false );
-  document.addEventListener( 'DOMMouseScroll', onMouseWheel, false ); // firefox
+  function preventDefault(e) {
+    e = e || window.event;
+    if (e.preventDefault)
+      e.preventDefault();
+    e.returnValue = false;
+  }
+
+  document.addEventListener('mousewheel', onMouseWheel, false);
+  document.addEventListener('DOMMouseScroll', onMouseWheel, false); // firefox
 
 
 
