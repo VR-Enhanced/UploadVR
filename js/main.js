@@ -4,6 +4,8 @@
 	var oceanSize = 20000;
 	var timeInc = 1 / 60;
 	G.clock = new THREE.Clock();
+	G.shaders = new ShaderLoader('shaders');
+
 
 	G.rf = THREE.Math.randFloat;
 
@@ -13,12 +15,16 @@
 		easing(TWEEN.Easing.Cubic.InOut);
 	};
 
-	$(document).ready(function() {
 
 
+		G.shaders.load('vs-text', 'text', 'vertex');
+		G.shaders.load('fs-text', 'text', 'fragment');
 
-		init();
-		animate();
+		G.shaders.shaderSetLoaded = function() {
+			init();
+			animate();
+		}
+
 
 		function init() {
 
@@ -84,6 +90,7 @@
 			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.05, 32));
 			cursor.translateZ(-5)
 			camera.add(cursor);
+			onResize();
 		}
 
 		function animate() {
@@ -108,7 +115,7 @@
 		}
 
 		window.addEventListener('resize', onResize, false);
-		onResize();
+		
 
 
 
@@ -123,4 +130,3 @@
 			}
 		};
 		window.addEventListener("keypress", onkey, true);
-	})
