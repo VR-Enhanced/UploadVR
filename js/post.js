@@ -95,13 +95,13 @@ function Post(content, position) {
   this.panel.select = function() {}
 
   this.panel.hoverOver = function() {
-    G.activePost = this;
+    G.hoveredPost = this;
     this.hover(100);
   }.bind(this)
 
   this.panel.hoverOut = function() {
     this.hover(-100)
-    G.activePanel = null;
+    G.hoveredPost = null;
 
   }.bind(this)
 

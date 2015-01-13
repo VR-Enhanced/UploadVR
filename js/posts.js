@@ -18,7 +18,10 @@ function Posts() {
 
   //add scroll events to scroll blogs
   function onMouseWheel(event) {
-
+    console.log(G.hoveredPost)
+    if(G.hoveredPost){
+      G.hoveredPost.scrollText(event);
+    }
     preventDefault(event);
   }
 
@@ -28,6 +31,8 @@ function Posts() {
       e.preventDefault();
     e.returnValue = false;
   }
+
+  window.addEventListener('wheel', onMouseWheel, false)
 
 
 
