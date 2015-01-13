@@ -2,13 +2,10 @@ var CustomControls;
 
 CustomControls = (function() {
   function CustomControls() {
-    var oculusControls = true;
-    var flyControls = false;
+    var oculusControls =false;
     if (oculusControls) {
       G.controls = new THREE.OculusRiftControls(camera);
-    } else if(flyControls){
-      G.controls = new THREE.FlyControls(camera);
-    } else {
+    }else {
       G.controls = new THREE.PointerLockControls(camera);
       scene.add(G.controls.getObject());
       var self = G;
