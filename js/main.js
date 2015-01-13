@@ -1,4 +1,4 @@
-	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect, stats;
+	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect, stats, text;
 	var water, mirrorMesh, waterNormals;
 	var posts;
 	var oceanSize = 20000;
@@ -36,7 +36,8 @@
 			renderer = new THREE.WebGLRenderer({
 				antialias: true
 			});
-			renderer.setClearColor(0x00416e)
+			  renderer.setClearColor( 0xffffff );
+			// renderer.setClearColor(0x00416e)
 			renderer.domElement.style.position = "absolute";
 			document.body.appendChild(renderer.domElement);
 
@@ -83,9 +84,10 @@
 			mirrorMesh.renderDepth = 10
 			mirrorMesh.add(water);
 			mirrorMesh.rotation.x = -Math.PI * 0.5;
-			scene.add(mirrorMesh);
+			// scene.add(mirrorMesh);
 
-			posts = new Posts();
+			// posts = new Posts();
+			text = new Text();
 
 			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.05, 32));
 			cursor.translateZ(-5)
