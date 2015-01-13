@@ -36,8 +36,8 @@
 			renderer = new THREE.WebGLRenderer({
 				antialias: true
 			});
-			  renderer.setClearColor( 0xffffff );
-			// renderer.setClearColor(0x00416e)
+			  // renderer.setClearColor( 0xffffff );
+			renderer.setClearColor(0x060009)
 			renderer.domElement.style.position = "absolute";
 			document.body.appendChild(renderer.domElement);
 

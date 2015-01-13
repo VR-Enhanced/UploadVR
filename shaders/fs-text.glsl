@@ -10,5 +10,5 @@ void main() {
              -d.x*sin(a) + d.y*cos(a));
     vec2 rg = vec2(0.0)+abs(d)/(0.5*size);
     float b = abs(vZ) / 540.0;
-    gl_FragColor = mix(diffuse, vec4(rg,b,diffuse.a), 0.0);
+    gl_FragColor = mix(diffuse, vec4(0.0, 1.0, 0.0,diffuse.a),0.6);
 }
