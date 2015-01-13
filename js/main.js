@@ -3,6 +3,7 @@
 	var posts;
 	var oceanSize = 20000;
 	var timeInc = 1 / 60;
+	G.clock = new THREE.Clock();
 
 	G.rf = THREE.Math.randFloat;
 
@@ -34,10 +35,7 @@
 			document.body.appendChild(renderer.domElement);
 
 
-			//Apply VR Headset positional data to camera
-			vrControls = new THREE.VRControls(camera, function(msg) {
-				console.log(msg);
-			});
+
 			customControls = new CustomControls();
 			G.objectControls = new ObjectControls(camera);
 
@@ -87,7 +85,6 @@
 			effect.render(scene, camera);
 			cssRenderer.render(scene, camera);
 			customControls.update();
-			vrControls.update();
 			G.objectControls.update();
 			TWEEN.update();
 
