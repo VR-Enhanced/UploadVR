@@ -14,6 +14,8 @@ function Posts(){
     }.bind(this)
   });
 
+
+
 }
 
 Posts.prototype.createPosts = function(posts){

@@ -20,7 +20,6 @@ function Post(content, index) {
   tex.flipY = false;
   tex.needsUpdate = true;
   tex.anisotropy = renderer.getMaxAnisotropy()
-  console.log("anistropy", tex.anisotropy);
 
 
 
@@ -104,20 +103,26 @@ function Post(content, index) {
 
   scene.add(top);
 
-  function onMouseWheel(event){
-    top.position.y -= event.wheelDelta/10
-    preventDefault(event);
+
+  G.objectControls.add(book);
+  book.select = function(){
+    console.log('yaah');
   }
 
-  function preventDefault(e) {
-    e = e || window.event;
-    if (e.preventDefault)
-      e.preventDefault();
-    e.returnValue = false;
-  }
+  // function onMouseWheel(event){
+  //   top.position.y -= event.wheelDelta/10
+  //   preventDefault(event);
+  // }
 
-  document.addEventListener('mousewheel', onMouseWheel, false);
-  document.addEventListener('DOMMouseScroll', onMouseWheel, false); // firefox
+  // function preventDefault(e) {
+  //   e = e || window.event;
+  //   if (e.preventDefault)
+  //     e.preventDefault();
+  //   e.returnValue = false;
+  // }
+
+  // document.addEventListener('mousewheel', onMouseWheel, false);
+  // document.addEventListener('DOMMouseScroll', onMouseWheel, false); // firefox
 
 
 
