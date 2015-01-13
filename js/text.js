@@ -1,6 +1,6 @@
 function Text() {
 
-  var fontSize = 64;
+  var fontSize = 128;
   var lettersPerSide = 16;
   var c = document.createElement('canvas');
   c.width = c.height = fontSize * lettersPerSide;
@@ -93,6 +93,7 @@ function Text() {
   book.doubleSided = true;
   book.position.set(0, 100, -100);
   top.add(book);
+  book.scale.set(10, 10, 1)
 
   scene.add(top);
 
