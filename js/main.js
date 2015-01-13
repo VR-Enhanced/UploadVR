@@ -87,6 +87,7 @@
 			effect.render(scene, camera);
 			cssRenderer.render(scene, camera);
 			customControls.update();
+			G.objectControls.update();
 			TWEEN.update();
 
 		}
