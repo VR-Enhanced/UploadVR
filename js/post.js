@@ -15,8 +15,7 @@ function Post($post, index) {
   var segment = index/G.totalPosts * (Math.PI * 2)
   var x= Math.cos(segment) * this.radius;
   var z = Math.sin(segment) * this.radius;
-  this.panel.position.set(x, 100, z);
-  this.panel.lookAt(new THREE.Vector3());
+  this.panel.position.set(x, 50, z);
 
 	this.panel.myId = index;
 
@@ -24,11 +23,12 @@ function Post($post, index) {
 	this.panel.add(innerPanel);
 	innerPanel.html = $post[0];
 	innerPanel.content = new THREE.CSS3DObject(innerPanel.html);
-	innerPanel.content.scale.set(0.2, 0.2, 1);
+	innerPanel.content.scale.set(.1, .1, 1);
 	innerPanel.add(innerPanel.content);
 
 	this.created = true
 
+  this.panel.lookAt(new THREE.Vector3());
 
 	G.objectControls.add(this.panel);
 	this.panel.select = function() {

@@ -89,7 +89,6 @@
 			customControls.update();
 			G.objectControls.update();
 			TWEEN.update();
-
 		}
 
 		function onResize() {
