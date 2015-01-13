@@ -22,7 +22,7 @@ Posts.prototype.createPosts = function(posts){
   G.totalPosts = posts.length;
   var string;
   var post;
-  var wordsPerLine = 12;
+  var wordsPerLine = 10;
   var words;
   for(var i = 0; i < posts.length; i++){
     //we need to create one big string from this guy, with new lines and such

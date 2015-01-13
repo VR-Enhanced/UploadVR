@@ -68,7 +68,6 @@ function Post(content, index) {
     }
   }
 
-  var top = new THREE.Object3D();
 
   var width = window.innerWidth,
     height = window.innerHeight;
@@ -96,33 +95,38 @@ function Post(content, index) {
     shaderMaterial
   );
   book.doubleSided = true;
-  book.position.set(index * 800, 200, -500);
-  top.add(book);
-  book.scale.set(10,10, 1)
   book.frustumCalled = false
 
-  scene.add(top);
+
+  var mat = new THREE.MeshBasicMaterial({
+    transparent: true,
+    opacity: .2
+  })
+  var panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(35, 700), mat)
+  panel.position.set(index * 800, 200, -500);
+  panel.scale.set(20,20,1);
+  scene.add(panel)
+  panel.add(book);
 
 
-  G.objectControls.add(book);
-  book.select = function(){
+  G.objectControls.add(panel);
+  panel.select = function(){
     console.log('yaah');
   }
 
-  // function onMouseWheel(event){
-  //   top.position.y -= event.wheelDelta/10
-  //   preventDefault(event);
-  // }
+  function onMouseWheel(event){
+    panel.position.y -= event.deltaY/10
+    preventDefault(event);
+  }
 
-  // function preventDefault(e) {
-  //   e = e || window.event;
-  //   if (e.preventDefault)
-  //     e.preventDefault();
-  //   e.returnValue = false;
-  // }
+  function preventDefault(e) {
+    e = e || window.event;
+    if (e.preventDefault)
+      e.preventDefault();
+    e.returnValue = false;
+  }
 
-  // document.addEventListener('mousewheel', onMouseWheel, false);
-  // document.addEventListener('DOMMouseScroll', onMouseWheel, false); // firefox
+  document.addEventListener('wheel', onMouseWheel, false);
 
 
 
