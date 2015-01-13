@@ -93,10 +93,30 @@ function Post(content, position) {
 
   G.objectControls.add(panel);
   panel.select = function(){
-    console.log('yaah');
   }
+
   panel.hoverOver = function(){
-    console.log('Hovver')
+    hover(100);
+  }
+
+  panel.hoverOut = function(){
+    hover(-100)
+
+  }
+
+  function hover(offset){
+    var i = {
+      y: panel.position.y
+    };
+    var f ={
+      y: panel.position.y + offset
+    };
+    var hoverTween = new TWEEN.Tween(i).
+      to(f, 500).
+      onUpdate(function(){
+        panel.position.y = i.y;
+      }).start();
+
   }
 
   function onMouseWheel(event){
@@ -112,7 +132,4 @@ function Post(content, position) {
   }
 
   document.addEventListener('wheel', onMouseWheel, false);
-
-
-
 }
