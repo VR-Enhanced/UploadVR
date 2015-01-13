@@ -1,15 +1,16 @@
-function Posts(){
+function Posts() {
+  this.createTextMapping();
   this.panels = [];
   $.ajax({
 
     url: 'posts/posts.json',
     dataType: 'json',
-    error: function(jqXHR, textStatus, errorThrown){
+    error: function(jqXHR, textStatus, errorThrown) {
       console.log(jqXHR)
       console.log(textStatus)
       console.log(errorThrown)
     },
-    success: function(data){
+    success: function(data) {
       this.createPosts(data.posts);
     }.bind(this)
   });
@@ -18,22 +19,22 @@ function Posts(){
 
 }
 
-Posts.prototype.createPosts = function(posts){
+Posts.prototype.createPosts = function(posts) {
   G.totalPosts = posts.length;
   var string;
   var post;
   var wordsPerLine = 10;
   var words;
-  for(var i = 0; i < posts.length; i++){
+  for (var i = 0; i < posts.length; i++) {
     //we need to create one big string from this guy, with new lines and such
     post = posts[i];
     string = "";
     string += post.title.toUpperCase() + '\n\n\n'
-    _.each(post.paragraphs, function(paragraph){
+    _.each(post.paragraphs, function(paragraph) {
       words = paragraph.split(' ');
-      for(var j = 0; j < words.length; j++){
-        string += words[j] +" ";
-        if(j!== 0 && j%wordsPerLine === 0){
+      for (var j = 0; j < words.length; j++) {
+        string += words[j] + " ";
+        if (j !== 0 && j % wordsPerLine === 0) {
           string += '\n';
         }
       }
@@ -44,5 +45,26 @@ Posts.prototype.createPosts = function(posts){
 
 }
 
+Posts.prototype.createTextMapping = function() {
+  G.fontSize = 64;
+  G.lettersPerSide = 16;
+  var c = document.createElement('canvas');
+  c.width = c.height = G.fontSize * G.lettersPerSide;
+  var ctx = c.getContext('2d');
+  ctx.font = G.fontSize + 'px Monospace';
 
+  var i = 0;
 
+  for (var y = 0; y < G.lettersPerSide; y++) {
+    for (var x = 0; x < G.lettersPerSide; x += 1, i++) {
+      var ch = String.fromCharCode(i);
+      ctx.fillText(ch, x * G.fontSize, -(8 / 32) * G.fontSize + (y + 1) * G.fontSize);
+    }
+  }
+
+  G.textMap = new THREE.Texture(c);
+  G.textMap.flipY = false;
+  G.textMap.needsUpdate = true;
+  G.textMap.anisotropy = renderer.getMaxAnisotropy()
+
+}

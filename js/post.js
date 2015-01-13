@@ -1,26 +1,5 @@
 function Post(content, index) {
-  var xSpace = 0.6;
-  var fontSize = 64;
-  var lettersPerSide = 16;
-  var c = document.createElement('canvas');
-  c.width = c.height = fontSize * lettersPerSide;
-  var ctx = c.getContext('2d');
-  ctx.font = fontSize + 'px Monospace';
-
-  var i = 0;
-
-  for (var y = 0; y < lettersPerSide; y++) {
-    for (var x = 0; x < lettersPerSide; x += 1, i++) {
-      var ch = String.fromCharCode(i);
-      ctx.fillText(ch, x * fontSize, -(8 / 32) * fontSize + (y + 1) * fontSize);
-    }
-  }
-
-  var tex = new THREE.Texture(c);
-  tex.flipY = false;
-  tex.needsUpdate = true;
-  tex.anisotropy = renderer.getMaxAnisotropy()
-
+ 
 
 
   var geo = new THREE.Geometry();
@@ -29,11 +8,12 @@ function Post(content, index) {
   var j = 0,
     ln = 0;
 
+  var xSpace = 0.6;
   for (i = 0; i < str.length; i++) {
     var code = str.charCodeAt(i);
 
-    var cx = code % lettersPerSide;
-    var cy = Math.floor(code / lettersPerSide);
+    var cx = code % G.lettersPerSide;
+    var cy = Math.floor(code / G.lettersPerSide);
     var v, t;
     var z = j * .1
     geo.vertices.push(
@@ -46,10 +26,10 @@ function Post(content, index) {
     geo.faces.push(face);
     face = new THREE.Face3(i * 4 + 0, i * 4 + 2, i * 4 + 3);
     geo.faces.push(face);
-    var ox = (cx + 0.05) / lettersPerSide,
-      oy = (cy + 0.05) / lettersPerSide,
-      off = 0.9 / lettersPerSide;
-    var sz = lettersPerSide * fontSize;
+    var ox = (cx + 0.05) / G.lettersPerSide,
+      oy = (cy + 0.05) / G.lettersPerSide,
+      off = 0.9 / G.lettersPerSide;
+    var sz = G.lettersPerSide * G.fontSize;
     geo.faceVertexUvs[0].push([
       new THREE.Vector2(ox, oy + off),
       new THREE.Vector2(ox + off, oy + off),
@@ -79,7 +59,7 @@ function Post(content, index) {
     },
     map: {
       type: "t",
-      value: tex
+      value: G.textMap
     },
   };
 
