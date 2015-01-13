@@ -19,10 +19,6 @@ function Text() {
   tex.flipY = false;
   tex.needsUpdate = true;
 
-  var mat = new THREE.MeshBasicMaterial({
-    map: tex
-  });
-  // mat.transparent = true;
 
   var geo = new THREE.Geometry();
   var str = BOOK;
@@ -89,7 +85,6 @@ function Text() {
     fragmentShader: G.shaders.fs.text
   });
   shaderMaterial.transparent = true;
-  shaderMaterial.depthTest = false;
 
   var book = new THREE.Mesh(
     geo,
@@ -100,6 +95,7 @@ function Text() {
   top.add(book);
 
   scene.add(top);
+
 
 
 

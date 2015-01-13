@@ -84,7 +84,7 @@
 			mirrorMesh.renderDepth = 10
 			mirrorMesh.add(water);
 			mirrorMesh.rotation.x = -Math.PI * 0.5;
-			// scene.add(mirrorMesh);
+			scene.add(mirrorMesh);
 
 			// posts = new Posts();
 			text = new Text();
