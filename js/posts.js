@@ -16,6 +16,20 @@ function Posts() {
   });
 
 
+  //add scroll events to scroll blogs
+  function onMouseWheel(event) {
+
+    preventDefault(event);
+  }
+
+  function preventDefault(e) {
+    e = e || window.event;
+    if (e.preventDefault)
+      e.preventDefault();
+    e.returnValue = false;
+  }
+
+
 
 }
 
@@ -34,10 +48,10 @@ Posts.prototype.createPosts = function(posts) {
     string = "";
     post.title = post.title.toUpperCase()
     words = post.title.split(' ');
-    for(var j = 0; j < words.length; j++){
+    for (var j = 0; j < words.length; j++) {
       string += words[j] + " ";
-      if(j!== 0 && j % wordsPerLine === 0){
-        string+="\n";
+      if (j !== 0 && j % wordsPerLine === 0) {
+        string += "\n";
       }
     }
     string += '\n\n\n';
@@ -53,7 +67,7 @@ Posts.prototype.createPosts = function(posts) {
     });
 
     //Set up posts in semicircle around user
-    var segment = (-Math.PI * 1.1) + i/posts.length * (Math.PI * 1.1);
+    var segment = (-Math.PI * 1.1) + i / posts.length * (Math.PI * 1.1);
     position.x = radius * Math.cos(segment);
     position.z = radius * Math.sin(segment);
     new Post(string, position);

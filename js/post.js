@@ -1,7 +1,7 @@
 function Post(content, position) {
- 
 
 
+  var self = this;
   var geo = new THREE.Geometry();
   var str = content;
 
@@ -82,54 +82,48 @@ function Post(content, position) {
     transparent: true,
     opacity: .05
   })
-  var panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(50, 70), mat)
-  panel.position.copy(position);
-  panel.scale.set(20,20,1);
-  scene.add(panel)
-  panel.add(book);
-  panel.lookAt(camera.position);
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(50, 70), mat)
+  this.panel.position.copy(position);
+  this.panel.scale.set(20, 20, 1);
+  scene.add(this.panel)
+  this.panel.add(book);
+  this.panel.lookAt(camera.position);
   book.position.set(10, 20, 0);
 
 
-  G.objectControls.add(panel);
-  panel.select = function(){
-  }
+  G.objectControls.add(this.panel);
+  this.panel.select = function() {}
 
-  panel.hoverOver = function(){
-    hover(100);
-  }
+  this.panel.hoverOver = function() {
+    G.activePost = this;
+    this.hover(100);
+  }.bind(this)
 
-  panel.hoverOut = function(){
-    hover(-100)
+  this.panel.hoverOut = function() {
+    this.hover(-100)
+    G.activePanel = null;
 
-  }
+  }.bind(this)
 
-  function hover(offset){
-    var i = {
-      y: panel.position.y
-    };
-    var f ={
-      y: panel.position.y + offset
-    };
-    var hoverTween = new TWEEN.Tween(i).
-      to(f, 500).
-      onUpdate(function(){
-        panel.position.y = i.y;
-      }).start();
 
-  }
+}
 
-  function onMouseWheel(event){
-    panel.position.y -= event.deltaY/10
-    preventDefault(event);
-  }
+Post.prototype.scrollText = function(event) {
+  this.panel.position.y -= event.deltaY / 10
+}
 
-  function preventDefault(e) {
-    e = e || window.event;
-    if (e.preventDefault)
-      e.preventDefault();
-    e.returnValue = false;
-  }
+Post.prototype.hover = function(offset) {
+  var i = {
+    y: this.panel.position.y
+  };
+  var f = {
+    y: this.panel.position.y + offset
+  };
+  var hoverTween = new TWEEN.Tween(i).
+  to(f, 500).
+  onUpdate(function() {
+    this.panel.position.y = i.y;
+  }.bind(this)).start();
 
-  document.addEventListener('wheel', onMouseWheel, false);
+
 }
