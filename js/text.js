@@ -1,6 +1,6 @@
 function Text() {
 
-  var fontSize = 128;
+  var fontSize = 64;
   var lettersPerSide = 16;
   var c = document.createElement('canvas');
   c.width = c.height = fontSize * lettersPerSide;
@@ -9,7 +9,7 @@ function Text() {
   var i = 0;
 
   for (var y = 0; y < lettersPerSide; y++) {
-    for (var x = 0; x < lettersPerSide; x++, i++) {
+    for (var x = 0; x < lettersPerSide; x+=1, i++) {
       var ch = String.fromCharCode(i);
       ctx.fillText(ch, x * fontSize, -(8 / 32) * fontSize + (y + 1) * fontSize);
     }
@@ -18,6 +18,7 @@ function Text() {
   var tex = new THREE.Texture(c);
   tex.flipY = false;
   tex.needsUpdate = true;
+
 
 
   var geo = new THREE.Geometry();
@@ -93,7 +94,7 @@ function Text() {
   book.doubleSided = true;
   book.position.set(0, 100, -100);
   top.add(book);
-  book.scale.set(10, 10, 1)
+  book.scale.set(5, 5, 1)
 
   scene.add(top);
 

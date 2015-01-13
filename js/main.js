@@ -86,8 +86,7 @@
 			mirrorMesh.rotation.x = -Math.PI * 0.5;
 			scene.add(mirrorMesh);
 
-			// posts = new Posts();
-			text = new Text();
+			posts = new Posts();
 
 			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.05, 32));
 			cursor.translateZ(-5)
