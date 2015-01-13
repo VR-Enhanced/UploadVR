@@ -2,7 +2,7 @@ var CustomControls;
 
 CustomControls = (function() {
   function CustomControls() {
-    var oculusControls =true;
+    var oculusControls =false;
     if (oculusControls) {
       G.controls = new THREE.OculusRiftControls(camera);
     }else {

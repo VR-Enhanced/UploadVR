@@ -1,4 +1,4 @@
-function Post(content, index) {
+function Post(content, position) {
  
 
 
@@ -80,13 +80,15 @@ function Post(content, index) {
 
   var mat = new THREE.MeshBasicMaterial({
     transparent: true,
-    opacity: .2
+    opacity: .05
   })
-  var panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(35, 700), mat)
-  panel.position.set(index * 800, 200, -500);
+  var panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(50, 70), mat)
+  panel.position.copy(position);
   panel.scale.set(20,20,1);
   scene.add(panel)
   panel.add(book);
+  panel.lookAt(camera.position);
+  book.position.set(10, 20, 0);
 
 
   G.objectControls.add(panel);

@@ -25,6 +25,9 @@ Posts.prototype.createPosts = function(posts) {
   var post;
   var wordsPerLine = 10;
   var words;
+  var radius = 2000;
+  var position = new THREE.Vector3();
+
   for (var i = 0; i < posts.length; i++) {
     //we need to create one big string from this guy, with new lines and such
     post = posts[i];
@@ -40,7 +43,12 @@ Posts.prototype.createPosts = function(posts) {
       }
       string += '\n\n';
     });
-    new Post(string, i);
+
+    //Set up posts in semicircle around user
+    var segment = (-Math.PI * 1.1) + i/posts.length * (Math.PI * 1.1);
+    position.x = radius * Math.cos(segment);
+    position.z = radius * Math.sin(segment);
+    new Post(string, position);
   }
 
 }

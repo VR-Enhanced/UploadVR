@@ -1,6 +1,32 @@
 {
   "posts": [
 
+     {
+      "title": "Qualcomm has Computer Vision on Lockdown",
+       "author": "Matthew Tunrdrup",
+       "date": "01/13/15",
+       "paragraphs": [
+        "This year at the Consumer Electronics Show (CES) marked the arrival of consumer virtual reality headsets as various types of VR technologies flooded the scene. Yet at the same time, augmented reality and computer vision techniques burst into the conference showing clues that the future of optical computing might eventually produce a fashionable set of powerful glasses; which will hit the mainstream like nothing ever seen before.",
+        "Hints of this idea sprouted up here and there during CES. One of the biggest indications of the possible effects of integrating VR and AR was noticed through the impact that the American superconductor company known as Qualcomm had at the show.",
+        "Looking closer into the subject revealed that strands of emerging technologies at CES 2015 attracted a lot of attention separately but were held together by research done by Qualcomm.",
+        "Qualcomm’s influence was uncovered in the most unlikely of areas during the conference. For instance, the company introduced a multi-mode autonomous drone that can ‘see’ items in 3D called the Snapdragon Cargo. The integrated code helps robots perceive their environment allowing for complex image processing and maneuverability",
+        "Extensions of this type of computer vision technology can be used in virtual reality applications as well as augmented reality, and Qualcomm is showing hints of that.",
+        "Another good example of their research teams’ work was their wearable device called the ODG R-7 Glasses which are labeled as “augmented reality (AR) head-worn computing technology”. As their product press release states, the ODG Glasses currently run off of a “Snapdragon™ 805 processor, with an integrated Adreno™ 420 GPU for stunning graphics and a power optimized DSP for advanced camera processing.” Their proprietary electro-optic, computing, sensor and power systems provide for the ability for developers to create truly immersive 3D stereoscopic experiences.",
+        "Their glasses are for the most part wireless, opening up the door for peer-to-peer data streaming. Embedded in the frame itself is a built in camera recording capture moments in time; all of which can be backed up to a server on or transmitted to someone nearby.",
+        "Even more exciting is the augmented reality and computer image processing capabilities. These glasses have a see-through “heads up” display with a resolution of 720p. It runs at 100 frames per second, and is based on ReticleOS, a version of Android 4.4.3 (KitKat) optimized for head-worn computing",
+        "The technology that the research team came up with is being used in the Infinity AR system. Essentially, the Infinity glasses and the ODG versions are the same package wrapped up in a different name.",
+        "Applications for these glasses have already been tested out. At the main Qualcomm booth during CES, they showcased features that could be integrated into planes. Using headsets like the ODG or Infinity AR, pilots can detect changes in the dashboard cycles and make decisions based on that data.",
+        "Another fun component is the option to play AR-related games based on tracking cues from real life environments. People can possibly draw patterns on portable surfaces which then are recognized by the glasses causing the software to initiate a game like chess or checkers. Both individuals wearing the headsets could potentially see what they other person saw, allowing for in-depth multi-player interactions.",
+        "On a more practically level, glasses similar to Infinity AR can depict weather patterns on any wall, provide additional popup-content depending on what is being read, allow for people to choose what types of clothes they want to buy, take phone calls, give directions, and much much more.",
+        "The challenge though for companies developing AR+VR headsets is that they have to bring down the price towards something that the masses can buy all at once. Thousands upon thousands of dollars is just too costly for large scale adoption. It would need to dip around the low hundreds in order to proliferate wildly into the market.",
+        "However, once virtual reality and augmented realty worlds collide, feelings of presence will reach exponential levels. It won’t matter what someone sees or what they touch, whether virtual or augmented, the objects will simply seem all real.",
+        "Eventually, the world can be drastically changed with a flip of a switch; altering whatever the wearer of the VR+AR headset will see. It strikes a similar path into what the Japanese science fiction anime Dennō Coil depicts about an immersive augmented reality technology that is beginning to hit the mainstream.",
+        "Honestly, I don’t think the technology is that far off from the projected high-tech world of Dennō Coil is described as. Just look towards the Infinity AR glasses as a proof of concept that the medium is already emerging. Surely it will take time to get the tracking cues just right, and of course there still has to be tons of programming hours in order to link all the headsets together seamlessly, but the groundwork has already been laid.",
+        "Now, it is up to the developers around the globe to take this type of system to a whole new dimension. Luckily, Qualcomm has a computer vision SDK known as Vuforia for those interested in building on their platform. Their global ecosystem at the time of writing this post consists of 125,000+ registered developers and powers 10,000+ apps with more than 150 million app installs worldwide. That is pretty damn impressive for a platform that is just starting to see the light of day.",
+        "For more information about what Qualcomm is working on, be sure to visit their main research website. In addition, if you haven’t seen Dennō Coil yet, check it out! It has some great insight into what the computer generated world of AR+VR might look like. Read the Wikipedia article about this series to learn more."
+       ]
+     },
+
 
       {
       "title": "The Omni belongs in the gym, not the living room",
@@ -61,8 +87,7 @@
         "Beyond the NBA and the new series from Skybound, there will also be experiences coming from Acura, Artist’s Den, Boiler Room, Matador, Mountain Dew, Red Bull, and Refinery 29. It’s an impressive list of launch content and I for one am really excited to check it all out. The fact that they are promising new daily content is beyond awesome, and will really help to push VR into the mainstream."
       ]
     },
-
-     {
+    {
       "title": "The Last Hurdles: The Remaining Challenges for Consumer Virtual Reality (Part 2)",
       "author": "AJ Tavakoli",
       "date": "01/02/15",
@@ -92,5 +117,7 @@
 
       ]
     }
+
+ 
   ]
 }
