@@ -95,6 +95,9 @@ function Post(content, position) {
   panel.select = function(){
     console.log('yaah');
   }
+  panel.hoverOver = function(){
+    console.log('Hovver')
+  }
 
   function onMouseWheel(event){
     panel.position.y -= event.deltaY/10
