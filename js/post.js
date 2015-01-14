@@ -51,21 +51,27 @@ function Post(content, position) {
 Post.prototype.flyIn = function(){
   var i = {
     x: this.panel.position.x,
-    z: this.panel.position.z
+    z: this.panel.position.z,
+    rotY: this.panel.rotation.y,
+    rotX: this.panel.rotation.x,
+    rotZ: this.panel.rotation.z,
   }
 
-  var newPos = G.customControls.camObject().clone().translateZ(-1000)
+  var target = G.customControls.camObject().clone().translateZ(-1000)
   var f = {
-    x: newPos.position.x,
-    z: newPos.position.z
+    x: target.position.x,
+    z: target.position.z,
+    rotY: target.rotation.y,
+    rotX: target.rotation.x,
+    rotZ: target.rotation.z,
   }
   var flyTween = new TWEEN.Tween(i).
     to(f, 1000).
     onUpdate(function(){
       this.panel.position.set(i.x, this.panel.position.y, i.z);
+      this.panel.rotation.set(i.rotX, i.rotY, i.rotZ);
     }.bind(this)).start();
     flyTween.onComplete(function(){
-      this.panel.lookAt(G.customControls.camPosition());
     }.bind(this));
 
 }
