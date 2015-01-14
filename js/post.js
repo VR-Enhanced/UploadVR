@@ -77,56 +77,62 @@ function Post(content, position) {
   // blog.doubleSided = true;
   blog.frustumCulled = false
 
-
+  this.originalOpacity = 0.07
   var mat = new THREE.MeshBasicMaterial({
     color: 0xff00ff,
     transparent: true,
-    opacity: .07,
+    opacity: this.originalOpacity,
     side: THREE.DoubleSide
   })
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(55, 1000), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(45, 1000), mat)
   this.panel.renderDepth = 10
   this.panel.position.copy(position);
   this.panel.scale.set(20, 20, 1);
   scene.add(this.panel)
   this.panel.add(blog);
   this.panel.lookAt(camera.position);
-  blog.position.set(10, 20, 1);
+  blog.position.set(15, 20, .1);
 
 
   G.objectControls.add(this.panel);
   this.panel.select = function() {}
+  this.originalHeight = this.panel.position.y;
 
+  this.hoveredOpacity = this.panel.material.opacity + 0.1;
+  this.hoveredHeight = this.panel.position.y + 100;
   this.panel.hoverOver = function() {
     G.hoveredPost = this;
-    this.hover(100);
+    this.hover(this.hoveredHeight, this.hoveredOpacity);
   }.bind(this)
 
   this.panel.hoverOut = function() {
-    this.hover(-100)
+    this.hover(this.originalHeight, this.originalOpacity)
     G.hoveredPost = null;
-
   }.bind(this)
 
 
 }
 
-Post.prototype.scrollText = function(event) {
-  this.panel.position.y -= event.deltaY / 10
-}
-
-Post.prototype.hover = function(offset) {
+Post.prototype.hover = function(pos, opacity) {
   var i = {
-    y: this.panel.position.y
+    y: this.panel.position.y,
+    opacity: this.panel.material.opacity
   };
   var f = {
-    y: this.panel.position.y + offset
+    y:pos,
+    opacity: opacity
   };
   var hoverTween = new TWEEN.Tween(i).
   to(f, 500).
   onUpdate(function() {
     this.panel.position.y = i.y;
+    this.panel.material.opacity = i.opacity;
   }.bind(this)).start();
 
 
+}
+
+
+Post.prototype.scrollText = function(event) {
+  this.panel.position.y -= event.deltaY / 10
 }
