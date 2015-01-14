@@ -2,6 +2,7 @@ var CustomControls;
 
 CustomControls = (function() {
   function CustomControls() {
+    G.speed = 8000;
     var vrInput;
     var onVRDevices = function(devices) {
 

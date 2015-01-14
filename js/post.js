@@ -8,9 +8,9 @@ function Post(content, position) {
   // this.blog.doubleSided = true;
   this.blog.frustumCulled = false
 
-  this.originalOpacity = 0.07
+  this.originalOpacity = 0.2
   var mat = new THREE.MeshBasicMaterial({
-    color: 0xff00ff,
+    color: 0x19002f,
     transparent: true,
     opacity: this.originalOpacity,
     side: THREE.DoubleSide
@@ -30,7 +30,7 @@ function Post(content, position) {
 
   G.objectControls.add(this.panel);
 
-  this.hoveredOpacity = this.panel.material.opacity + 0.04;
+  this.hoveredOpacity = 0.97;
   this.hoveredHeight = this.blog.position.y + 10;
   this.panel.hoverOver = function() {
     G.hoveredPost = this;

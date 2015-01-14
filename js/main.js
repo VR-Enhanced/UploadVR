@@ -1,12 +1,13 @@
-	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect, stats, text;
+	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect, stats, background;
 	var water, mirrorMesh, waterNormals;
 	var posts;
 	var oceanSize = 20000;
 	var timeInc = 1 / 60;
 	G.clock = new THREE.Clock();
 	G.shaders = new ShaderLoader('shaders');
-	G.userHeight = 50;
+	G.userHeight = 200;
 	G.bgColor = new THREE.Color().setHex(0x060009)
+
 
 
 	G.rf = THREE.Math.randFloat;
@@ -19,116 +20,115 @@
 
 
 
-		G.shaders.load('vs-text', 'text', 'vertex');
-		G.shaders.load('fs-text', 'text', 'fragment');
+	G.shaders.load('vs-text', 'text', 'vertex');
+	G.shaders.load('fs-text', 'text', 'fragment');
 
-		G.shaders.shaderSetLoaded = function() {
-			init();
-			animate();
-		}
-
-
-		function init() {
+	G.shaders.shaderSetLoaded = function() {
+		init();
+		animate();
+	}
 
 
-			camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 20000);
-			scene = new THREE.Scene();
-			scene.add(camera);
-			renderer = new THREE.WebGLRenderer({
-				antialias: true
-			});
-			renderer.setClearColor(G.bgColor)
-			renderer.domElement.style.position = "absolute";
-			document.body.appendChild(renderer.domElement);
-
-			stats = new Stats();
-			stats.domElement.style.position = 'absolute';
-			stats.domElement.style.left = '0px';
-			stats.domElement.style.top = '0px';
-
-			document.body.appendChild(stats.domElement);
+	function init() {
 
 
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 20000);
+		scene = new THREE.Scene();
+		scene.add(camera);
+		renderer = new THREE.WebGLRenderer({
+			antialias: true
+		});
+		renderer.setClearColor(G.bgColor)
+		renderer.domElement.style.position = "absolute";
+		document.body.appendChild(renderer.domElement);
 
-			customControls = new CustomControls();
-			G.objectControls = new ObjectControls(camera);
+		stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.left = '0px';
+		stats.domElement.style.top = '0px';
 
-			effect = new THREE.VREffect(renderer, function(msg) {
-				if (msg !== undefined) {
-					console.log(msg)
-				}
-			});
-
-			cssRenderer = new THREE.CSS3DRenderer();
-			cssRenderer.domElement.style.position = 'fixed';
-			document.body.appendChild(cssRenderer.domElement);
-
-
-			waterNormals = new THREE.ImageUtils.loadTexture('img/waternormals.jpg');
-			waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
-
-			water = new THREE.Water(renderer, camera, scene, {
-				textureWidth: 512,
-				textureHeight: 512,
-				waterNormals: waterNormals,
-				alpha: 1.0,
-
-				waterColor: 0x001e0f,
-				distortionScale: 50.0,
-			});
-
-			mirrorMesh = new THREE.Mesh(
-				new THREE.PlaneBufferGeometry(oceanSize, oceanSize),
-				water.material
-			);
-			mirrorMesh.renderDepth = 10
-			mirrorMesh.add(water);
-			mirrorMesh.rotation.x = -Math.PI * 0.5;
-			// scene.add(mirrorMesh);
-
-			posts = new Posts();
-
-			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.02, 32));
-			cursor.translateZ(-5)
-			camera.add(cursor);
-			onResize();
-		}
-
-		function animate() {
-
-			requestAnimationFrame(animate);
-			water.material.uniforms.time.value += timeInc;
-			water.render();
-			effect.render(scene, camera);
-			cssRenderer.render(scene, camera);
-			customControls.update();
-			G.objectControls.update();
-			TWEEN.update();
-			stats.update();
-		}
-
-		function onResize() {
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-			effect.setSize(window.innerWidth, window.innerHeight);
-			cssRenderer.setSize(window.innerWidth, window.innerHeight);
-
-		}
-
-		window.addEventListener('resize', onResize, false);
-		
+		document.body.appendChild(stats.domElement);
 
 
 
-		function map(value, min1, max1, min2, max2) {
-			return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
-		}
+		customControls = new CustomControls();
+		G.objectControls = new ObjectControls(camera);
 
-		function onkey(event) {
-
-			if (event.charCode == 'f'.charCodeAt(0)) {
-				effect.setFullScreen(true);
-				// G.controls = new THREE.OculusRiftControls(camera);
+		effect = new THREE.VREffect(renderer, function(msg) {
+			if (msg !== undefined) {
+				console.log(msg)
 			}
-		};
-		window.addEventListener("keypress", onkey, true);
+		});
+
+		cssRenderer = new THREE.CSS3DRenderer();
+		cssRenderer.domElement.style.position = 'fixed';
+		document.body.appendChild(cssRenderer.domElement);
+
+
+		waterNormals = new THREE.ImageUtils.loadTexture('img/waternormals.jpg');
+		waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+
+		water = new THREE.Water(renderer, camera, scene, {
+			textureWidth: 512,
+			textureHeight: 512,
+			waterNormals: waterNormals,
+			alpha: 1.0,
+			waterColor: 0x001e0f,
+			distortionScale: 30.0,
+		});
+
+		mirrorMesh = new THREE.Mesh(
+			new THREE.PlaneBufferGeometry(oceanSize, oceanSize),
+			water.material
+		);
+		mirrorMesh.renderDepth = 10
+		mirrorMesh.add(water);
+		mirrorMesh.rotation.x = -Math.PI * 0.5;
+		scene.add(mirrorMesh);
+
+		posts = new Posts();
+		background = new Background();
+
+		var cursor = new THREE.Mesh(new THREE.SphereGeometry(.02, 32));
+		cursor.translateZ(-5)
+		camera.add(cursor);
+		onResize();
+	}
+
+	function animate() {
+
+		requestAnimationFrame(animate);
+		water.material.uniforms.time.value += timeInc;
+		water.render();
+		effect.render(scene, camera);
+		cssRenderer.render(scene, camera);
+		customControls.update();
+		G.objectControls.update();
+		TWEEN.update();
+		stats.update();
+		background.update();
+	}
+
+	function onResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		effect.setSize(window.innerWidth, window.innerHeight);
+		cssRenderer.setSize(window.innerWidth, window.innerHeight);
+
+	}
+
+	window.addEventListener('resize', onResize, false);
+
+
+
+	function map(value, min1, max1, min2, max2) {
+		return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
+	}
+
+	function onkey(event) {
+
+		if (event.charCode == 'f'.charCodeAt(0)) {
+			effect.setFullScreen(true);
+		}
+	};
+	window.addEventListener("keypress", onkey, true);
