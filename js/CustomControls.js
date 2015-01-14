@@ -14,6 +14,7 @@ CustomControls = (function() {
 
           vrInput = devices[i];
           G.controls = new THREE.OculusRiftControls(camera, vrInput)
+          G.controls.zeroSensor();
           return; // We keep the first we encounter
 
         }
