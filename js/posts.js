@@ -43,7 +43,7 @@ Posts.prototype.createPosts = function(posts) {
   var post;
   var wordsPerLine = 8;
   var words;
-  var radius = 2000;
+  var radius = 4000;
   var position = new THREE.Vector3();
 
   for (var i = 0; i < posts.length; i++) {

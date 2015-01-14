@@ -1,4 +1,4 @@
-	var scene, renderer, cssRenderer, camera, vrControls, customControls, container, effect, stats, background;
+	var scene, renderer, cssRenderer, camera, vrControls, container, effect, stats, background;
 	var water, mirrorMesh, waterNormals;
 	var posts;
 	var oceanSize = 20000;
@@ -51,7 +51,7 @@
 
 
 
-		customControls = new CustomControls();
+		G.customControls = new CustomControls();
 		G.objectControls = new ObjectControls(camera);
 
 		effect = new THREE.VREffect(renderer, function(msg) {
@@ -102,7 +102,7 @@
 		water.render();
 		effect.render(scene, camera);
 		cssRenderer.render(scene, camera);
-		customControls.update();
+		G.customControls.update();
 		G.objectControls.update();
 		TWEEN.update();
 		stats.update();

@@ -70,6 +70,33 @@ CustomControls = (function() {
     }
   };
 
+  CustomControls.prototype.camPosition = function() {
+    if (G.pointerLock) {
+      return G.controls.getObject().position;
+    } else {
+      return camera.position
+    }
+  }
+
+  CustomControls.prototype.camObject = function(){
+     if (G.pointerLock) {
+      return G.controls.getObject();
+    } else {
+      return camera
+    }
+  }
+
+  CustomControls.prototype.camDirection = function() {
+    if (G.pointerLock) {
+      return G.controls.getDirection();
+
+    } else {
+      var lookAt = new THREE.Vector3(0, 0, -1);
+      lookAt.applyQuaternion(camera.quaternion);
+      return lookAt;
+    }
+  }
+
   return CustomControls;
 
 })();

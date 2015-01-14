@@ -8,9 +8,9 @@ function Post(content, position) {
   // this.blog.doubleSided = true;
   this.blog.frustumCulled = false
 
-  this.originalOpacity = 0.2
+  this.originalOpacity = 0.7
   var mat = new THREE.MeshBasicMaterial({
-    color: 0x19002f,
+    color: 0x150026,
     transparent: true,
     opacity: this.originalOpacity,
     side: THREE.DoubleSide
@@ -35,14 +35,38 @@ function Post(content, position) {
   this.panel.hoverOver = function() {
     G.hoveredPost = this;
     this.hover(this.hoveredHeight, this.hoveredOpacity);
-  }.bind(this)
+  }.bind(this);
 
    this.panel.hoverOut = function() {
     this.hover(this.originalHeight, this.originalOpacity)
     G.hoveredPost = null;
-  }.bind(this)
+  }.bind(this);
 
-  this.panel.select = function() {}
+  this.panel.select = function() {
+    this.flyIn()
+  }.bind(this);
+
+}
+
+Post.prototype.flyIn = function(){
+  var i = {
+    x: this.panel.position.x,
+    z: this.panel.position.z
+  }
+
+  var newPos = G.customControls.camObject().clone().translateZ(-1000)
+  var f = {
+    x: newPos.position.x,
+    z: newPos.position.z
+  }
+  var flyTween = new TWEEN.Tween(i).
+    to(f, 1000).
+    onUpdate(function(){
+      this.panel.position.set(i.x, this.panel.position.y, i.z);
+    }.bind(this)).start();
+    flyTween.onComplete(function(){
+      this.panel.lookAt(G.customControls.camPosition());
+    }.bind(this));
 
 }
 
@@ -61,7 +85,6 @@ Post.prototype.hover = function(pos, opacity) {
     this.blog.position.y = i.y;
     this.panel.material.opacity = i.opacity;
   }.bind(this)).start();
-
 
 }
 
