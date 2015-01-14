@@ -46,7 +46,7 @@ Posts.prototype.createPosts = function(posts) {
   var radius = 2000;
   var position = new THREE.Vector3();
 
-  for (var i = 0; i < 8; i++) {
+  for (var i = 0; i < posts.length; i++) {
     //we need to create one big string from this guy, with new lines and such
     post = posts[i];
     string = "";
