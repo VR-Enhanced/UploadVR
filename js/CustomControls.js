@@ -26,7 +26,7 @@ CustomControls = (function() {
 
 
     } else {
-
+      G.pointerLock = true;
       console.log('Your browser is not VR Ready');
       G.controls = new THREE.PointerLockControls(camera);
       scene.add(G.controls.getObject());
