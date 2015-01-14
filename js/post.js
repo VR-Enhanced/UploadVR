@@ -25,7 +25,7 @@ function Post(content, position) {
   
 
   this.originalHeight = 10;
-  this.blog.position.set(15, this.originalHeight, .1);
+  this.blog.position.set(-20, this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
