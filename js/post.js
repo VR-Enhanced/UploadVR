@@ -4,7 +4,7 @@ function Post(content, position) {
   var self = this;
 
 
-  this.blog = G.textFactory.createMesh(content)
+  this.blog = G.textFactory.createMesh(content, {color: new THREE.Color(0x00ff00)})
   // this.blog.doubleSided = true;
   this.blog.frustumCulled = false
 
