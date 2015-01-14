@@ -70,25 +70,28 @@ function Post(content, position) {
   });
   shaderMaterial.transparent = true;
 
-  var book = new THREE.Mesh(
+  var blog = new THREE.Mesh(
     geo,
     shaderMaterial
   );
-  book.doubleSided = true;
-  book.frustumCalled = false
+  // blog.doubleSided = true;
+  blog.frustumCulled = false
 
 
   var mat = new THREE.MeshBasicMaterial({
+    color: 0xff00ff,
     transparent: true,
-    opacity: .05
+    opacity: .07,
+    side: THREE.DoubleSide
   })
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(50, 70), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(55, 1000), mat)
+  this.panel.renderDepth = 10
   this.panel.position.copy(position);
   this.panel.scale.set(20, 20, 1);
   scene.add(this.panel)
-  this.panel.add(book);
+  this.panel.add(blog);
   this.panel.lookAt(camera.position);
-  book.position.set(10, 20, 0);
+  blog.position.set(10, 20, 1);
 
 
   G.objectControls.add(this.panel);

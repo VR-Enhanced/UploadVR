@@ -5,6 +5,8 @@
 	var timeInc = 1 / 60;
 	G.clock = new THREE.Clock();
 	G.shaders = new ShaderLoader('shaders');
+	G.userHeight = 50;
+	G.bgColor = new THREE.Color().setHex(0x060009)
 
 
 	G.rf = THREE.Math.randFloat;
@@ -12,7 +14,7 @@
 	TWEEN.origTween = TWEEN.Tween;
 	TWEEN.Tween = function(options) {
 		return new TWEEN.origTween(options).
-		easing(TWEEN.Easing.Cubic.InOut);
+		easing(TWEEN.Easing.Cubic.Out);
 	};
 
 
@@ -30,14 +32,12 @@
 
 
 			camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 20000);
-			camera.position.set(0, 10, 0);
 			scene = new THREE.Scene();
 			scene.add(camera);
 			renderer = new THREE.WebGLRenderer({
 				antialias: true
 			});
-			  // renderer.setClearColor( 0xffffff );
-			renderer.setClearColor(0x060009)
+			renderer.setClearColor(G.bgColor)
 			renderer.domElement.style.position = "absolute";
 			document.body.appendChild(renderer.domElement);
 

@@ -18,7 +18,6 @@ function Posts() {
 
   //add scroll events to scroll blogs
   function onMouseWheel(event) {
-    console.log(G.hoveredPost)
     if(G.hoveredPost){
       G.hoveredPost.scrollText(event);
     }
