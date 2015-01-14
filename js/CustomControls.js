@@ -2,15 +2,35 @@ var CustomControls;
 
 CustomControls = (function() {
   function CustomControls() {
-    G.oculusControls = false;
-    if (G.oculusControls) {
-      G.controls = new THREE.OculusRiftControls(camera);
-    }else {
+    var vrInput;
+    var onVRDevices = function(devices) {
+
+      for (var i = 0; i < devices.length; i++) {
+
+        var device = devices[i];
+
+        if (device instanceof PositionSensorVRDevice) {
+
+          vrInput = devices[i];
+          return; // We keep the first we encounter
+
+        }
+
+      }
+    };
+
+    if (navigator.getVRDevices !== undefined) {
+
+      navigator.getVRDevices().then(onVRDevices);
+      G.controls = new OculusRiftControls(camera, vrInput)
+
+    } else {
+
+      console.log('Your browser is not VR Ready');
       G.controls = new THREE.PointerLockControls(camera);
       scene.add(G.controls.getObject());
-      var self = G;
       document.addEventListener('click', function(event) {
-        if (self.controls.enabled) {
+        if (G.controls.enabled) {
           return
         }
         var element, havePointerLock, pointerLockChange;
@@ -20,7 +40,7 @@ CustomControls = (function() {
           pointerLockChange = (function(_this) {
             return function(event) {
               if (document.pointerLockElement = element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
-                G.controls.enabled = !self.controls.enabled;
+                G.controls.enabled = !G.controls.enabled;
               }
             };
           })(this);
@@ -31,7 +51,7 @@ CustomControls = (function() {
           pointerLockChange();
         });
         document.addEventListener('mozpointerlockchange', pointerLockChange, false);
-        return document.addEventListener('webkitpointerlockchange', function() {
+        document.addEventListener('webkitpointerlockchange', function() {
           pointerLockChange();
         });
       });
@@ -40,8 +60,11 @@ CustomControls = (function() {
 
   }
 
+
   CustomControls.prototype.update = function() {
-    G.controls.update();
+    if (G.controls) {
+      G.controls.update();
+    }
   };
 
   return CustomControls;
