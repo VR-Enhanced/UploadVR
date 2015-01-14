@@ -92,7 +92,7 @@ Posts.prototype.createTextMapping = function() {
   for (var y = 0; y < G.lettersPerSide; y++) {
     for (var x = 0; x < G.lettersPerSide; x += 1, i++) {
       var ch = String.fromCharCode(i);
-      ctx.fillText(ch, x * G.fontSize, -(8 / 32) * G.fontSize + (y + 1) * G.fontSize);
+      ctx.fillText(ch, x * G.fontSize + 10, -(8 / 32) * G.fontSize + (y + 1) * G.fontSize);
     }
   }
 
