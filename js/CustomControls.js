@@ -12,6 +12,7 @@ CustomControls = (function() {
         if (device instanceof PositionSensorVRDevice) {
 
           vrInput = devices[i];
+          G.controls = new THREE.OculusRiftControls(camera, vrInput)
           return; // We keep the first we encounter
 
         }
@@ -22,7 +23,7 @@ CustomControls = (function() {
     if (navigator.getVRDevices !== undefined) {
 
       navigator.getVRDevices().then(onVRDevices);
-      G.controls = new OculusRiftControls(camera, vrInput)
+
 
     } else {
 
