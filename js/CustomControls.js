@@ -41,7 +41,7 @@ CustomControls = (function() {
   }
 
   CustomControls.prototype.update = function() {
-    G.controls.update(G.clock.getDelta());
+    G.controls.update();
   };
 
   return CustomControls;

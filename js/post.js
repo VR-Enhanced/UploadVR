@@ -93,15 +93,14 @@ function Post(content, position) {
   this.panel.lookAt(camera.position);
   
 
-  this.originalHeight = this.blog.position.y;
+  this.originalHeight = 10;
   this.blog.position.set(15, this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
-  this.originalHeight = this.panel.position.y;
 
-  this.hoveredOpacity = this.panel.material.opacity + 0.1;
-  this.hoveredHeight = this.blog.position.y + 20;
+  this.hoveredOpacity = this.panel.material.opacity + 0.04;
+  this.hoveredHeight = this.blog.position.y + 10;
   this.panel.hoverOver = function() {
     G.hoveredPost = this;
     this.hover(this.hoveredHeight, this.hoveredOpacity);

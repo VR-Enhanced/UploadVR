@@ -128,6 +128,7 @@
 
 			if (event.charCode == 'f'.charCodeAt(0)) {
 				effect.setFullScreen(true);
+				// G.controls = new THREE.OculusRiftControls(camera);
 			}
 		};
 		window.addEventListener("keypress", onkey, true);
