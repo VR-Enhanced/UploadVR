@@ -41,7 +41,7 @@ Posts.prototype.createPosts = function(posts) {
   G.totalPosts = posts.length;
   var string;
   var post;
-  var wordsPerLine = 10;
+  var wordsPerLine = 8;
   var words;
   var radius = 2000;
   var position = new THREE.Vector3();

@@ -88,7 +88,7 @@
 
 			posts = new Posts();
 
-			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.05, 32));
+			var cursor = new THREE.Mesh(new THREE.SphereGeometry(.02, 32));
 			cursor.translateZ(-5)
 			camera.add(cursor);
 			onResize();
