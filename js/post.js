@@ -22,7 +22,7 @@ function Post(content, position, imageURL, videoURL) {
   this.panel.scale.set(20, 20, 1);
   scene.add(this.panel)
   this.panel.add(this.blog);
-  this.panel.lookAt(camera.position);
+  this.panel.lookAt(new THREE.Vector3());
   this.originalPosition = this.panel.position.clone();
   this.originalRotation = this.panel.rotation.clone();
   this.blog.scale.set(2, 2, 1)
@@ -132,7 +132,7 @@ Post.prototype.fly = function(position, rotation) {
   to(f, 1000).
   onUpdate(function() {
     this.panel.position.set(i.x, this.panel.position.y, i.z);
-    this.panel.rotation.set(i.rotX, i.rotY, i.rotZ);
+    this.panel.rotation.set(this.panel.rotation.x, i.rotY, this.panel.rotation.z);
   }.bind(this)).start();
   flyTween.onComplete(function() {
     this.newSpot = true;
