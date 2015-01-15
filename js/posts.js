@@ -41,8 +41,8 @@ Posts.prototype.createPosts = function(posts) {
   G.totalPosts = posts.length;
   var string;
   var post;
-  var wordsPerLine = 8;
-  var words;
+  var maxCharsPerLine = 30;
+  var curCharCount = 0;
   var radius = 7000;
   var position = new THREE.Vector3();
 
@@ -55,17 +55,22 @@ Posts.prototype.createPosts = function(posts) {
     words = post.title.split(' ');
     for (var j = 0; j < words.length; j++) {
       string += words[j] + " ";
-      if (j !== 0 && j % wordsPerLine === 0) {
+      curCharCount += words[j].length;
+      if (curCharCount >= maxCharsPerLine) {
         string += "\n";
+        curCharCount = 0;
       }
     }
+    curCharCount = 0;
     string += '\n\n\n';
     _.each(post.paragraphs, function(paragraph) {
       words = paragraph.split(' ');
       for (var j = 0; j < words.length; j++) {
         string += words[j] + " ";
-        if (j !== 0 && j % wordsPerLine === 0) {
+        curCharCount += words[j].length;
+        if (j !== 0 &&  curCharCount > maxCharsPerLine) {
           string += '\n';
+          curCharCount = 0;
         }
       }
       string += '\n\n';

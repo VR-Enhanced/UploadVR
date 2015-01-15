@@ -3,20 +3,28 @@ function Post(content, position, imageURL, videoURL) {
 
   var self = this;
 
-  this.distanceFromUser = 1300
+  this.originalImageOpacity = 0.0;
+  this.hoveredImageOpacity = 1.0;
+
+  this.originalOpacity = 0.2
+  this.hoveredOpacity = 0.9;
+
+  this.originalHeight = 0;
+  this.hoveredHeight = 10;
+
+  this.distanceFromUser = 900
   this.blog = G.textFactory.createMesh(content, {
-      color: new THREE.Color(0x00ff00)
-    })
+    color: new THREE.Color(0x00ff00)
+  })
   this.blog.frustumCulled = false
   this.videoURL = videoURL;
-  this.originalOpacity = 0.2
   var mat = new THREE.MeshBasicMaterial({
     color: 0x150026,
     transparent: true,
     opacity: this.originalOpacity,
     side: THREE.DoubleSide
   });
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(90, 500), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(70, 500), mat)
   this.panel.renderDepth = 9
   this.panel.position.copy(position);
   this.panel.scale.set(20, 20, 1);
@@ -27,16 +35,13 @@ function Post(content, position, imageURL, videoURL) {
   this.originalRotation = this.panel.rotation.clone();
   this.blog.scale.set(2, 2, 1)
 
-  this.originalHeight = 10;
-  this.blog.position.set(-30, this.originalHeight, .1);
+
+  this.blog.position.set(-15, this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
 
-  this.originalImageOpacity = 0.0;
-  this.hoveredImageOpacity = 1.0;
-  this.hoveredOpacity = 0.9;
-  this.hoveredHeight = this.blog.position.y + 10;
+
   var imageMaterial;
   if (imageURL) {
 
@@ -83,30 +88,30 @@ function Post(content, position, imageURL, videoURL) {
     if (G.hoveredPost) {
       G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalOpacity, G.hoveredPost.originalImageOpacity);
       //the old post is a video, we want to stop that!
-      if(G.hoveredPost.video){
+      if (G.hoveredPost.video) {
         G.hoveredPost.video.pause()
       }
     }
     //if new post is video, we want to play
-    if(this.video){
+    if (this.video) {
       this.video.play();
     }
     G.hoveredPost = this;
 
     this.hover(this.hoveredHeight, this.hoveredOpacity, this.hoveredImageOpacity);
   }.bind(this);
- 
+
 
   this.panel.hoverOut = function() {
     this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
-    if(!this.flying){
+    if (!this.flying) {
       this.fly(this.originalPosition, this.originalRotation)
     }
   }.bind(this);
 
   this.panel.select = function() {
     var target = G.customControls.camObject().clone().translateZ(-this.distanceFromUser);
-    this.fly(target.position, target.rotation) 
+    this.fly(target.position, target.rotation)
   }.bind(this);
 
 
@@ -157,6 +162,7 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
   var hoverTween = new TWEEN.Tween(i).
   to(f, 500).
   onUpdate(function() {
+    this.panel.position.y = i.y;
     this.blog.position.y = i.y;
     this.panel.material.opacity = i.opacity;
     this.skyImage.material.opacity = i.imageOpacity
