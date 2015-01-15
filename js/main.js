@@ -69,7 +69,7 @@
 			textureWidth: 512,
 			textureHeight: 512,
 			waterNormals: waterNormals,
-			alpha: 1.0,
+			alpha: 0.7,
 			waterColor: 0x001e0f,
 			distortionScale: 30.0,
 		});

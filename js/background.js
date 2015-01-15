@@ -21,8 +21,8 @@ function Background() {
 Background.prototype.generateStars = function() {
   this.starEmitter = new SPE.Emitter({
     type: 'sphere',
-    radius: 20000,
-    sizeStart: 1000, 
+    radius: 80000,
+    sizeStart: 4000, 
     particleCount: 10000,
     opacityStart: 0,
     opacityMiddle: 1,

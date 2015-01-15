@@ -4,8 +4,10 @@ function Post(content, position, imageURL) {
   var self = this;
 
 
-  this.blog = G.textFactory.createMesh(content, {color: new THREE.Color(0x00ff00)})
-  // this.blog.doubleSided = true;
+  this.blog = G.textFactory.createMesh(content, {
+      color: new THREE.Color(0x00ff00)
+    })
+    // this.blog.doubleSided = true;
   this.blog.frustumCulled = false
 
   this.originalOpacity = 0.2
@@ -15,50 +17,57 @@ function Post(content, position, imageURL) {
     opacity: this.originalOpacity,
     side: THREE.DoubleSide
   });
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(45, 500), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(80, 500), mat)
   this.panel.renderDepth = 10
   this.panel.position.copy(position);
   this.panel.scale.set(20, 20, 1);
   scene.add(this.panel)
   this.panel.add(this.blog);
   this.panel.lookAt(camera.position);
-  
+  this.blog.scale.set(2, 2, 1)
 
   this.originalHeight = 10;
-  this.blog.position.set(-20, this.originalHeight, .1);
+  this.blog.position.set(-30, this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
 
   this.originalImageOpacity = 0.0;
-  this.hoveredImageOpacity =  1.0;
+  this.hoveredImageOpacity = 1.0;
   this.hoveredOpacity = 0.9;
   this.hoveredHeight = this.blog.position.y + 10;
 
-  var imageScale = 10;
-  if(imageURL){
-    THREE.ImageUtils.loadTexture(imageURL, undefined, function(texture){
+  var imageScale = 100;
+  if (imageURL) {
+    THREE.ImageUtils.loadTexture(imageURL, undefined, function(texture) {
       var material = new THREE.MeshBasicMaterial({
         map: texture,
         transparent: true,
-        opacity: this.originalImageOpacity
+        opacity: this.originalImageOpacity,
+        side: THREE.DoubleSide,
       })
-      this.image = new THREE.Mesh(new THREE.PlaneBufferGeometry(texture.image.width,  texture.image.height), material)
-      scene.add(this. image);
-      this.image.scale.multiplyScalar(imageScale)
-      this.image.position.z = -20000;
-      this.image.position.y += texture.image.height/2 * imageScale
-      this.image.position.x = 
-      this.image.renderDepth = 10
+
+      var radius = 500;
+      //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
+      var geo =  new THREE.SphereGeometry(radius, 16, 8, Math.PI/2 +1, Math.PI * 1.3, 1, 1.2);
+      this.skyImage = new THREE.Mesh(geo, material);
+      this.skyImage.doubleSided = true;
+      this.skyImage.position.z = -20000
+      this.skyImage.scale.multiplyScalar(imageScale)
+      this.skyImage.position.y = (radius/2 * imageScale)
+      this.skyImage.renderDepth = 10
+      scene.add(this.skyImage)
     }.bind(this));
+
+
   }
   this.panel.hoverOver = function() {
     G.hoveredPost = this;
     this.hover(this.hoveredHeight, this.hoveredOpacity, this.hoveredImageOpacity);
   }.bind(this);
 
-   this.panel.hoverOut = function() {
-    this.hover(this.originalHeight, this.originalOpacity, this.originalImageOpacity)
+  this.panel.hoverOut = function() {
+    this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
     G.hoveredPost = null;
   }.bind(this);
 
@@ -68,7 +77,7 @@ function Post(content, position, imageURL) {
 
 }
 
-Post.prototype.flyIn = function(){
+Post.prototype.flyIn = function() {
   var i = {
     x: this.panel.position.x,
     z: this.panel.position.z,
@@ -86,13 +95,12 @@ Post.prototype.flyIn = function(){
     rotZ: target.rotation.z,
   }
   var flyTween = new TWEEN.Tween(i).
-    to(f, 1000).
-    onUpdate(function(){
-      this.panel.position.set(i.x, this.panel.position.y, i.z);
-      this.panel.rotation.set(i.rotX, i.rotY, i.rotZ);
-    }.bind(this)).start();
-    flyTween.onComplete(function(){
-    }.bind(this));
+  to(f, 1000).
+  onUpdate(function() {
+    this.panel.position.set(i.x, this.panel.position.y, i.z);
+    this.panel.rotation.set(i.rotX, i.rotY, i.rotZ);
+  }.bind(this)).start();
+  flyTween.onComplete(function() {}.bind(this));
 
 }
 
@@ -100,11 +108,11 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
   var i = {
     y: this.blog.position.y,
     opacity: this.panel.material.opacity,
-    imageOpacity: this.image.material.opacity
+    imageOpacity: this.skyImage.material.opacity
   };
 
   var f = {
-    y:pos,
+    y: pos,
     opacity: opacity,
     imageOpacity: imageOpacity
   };
@@ -113,7 +121,7 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
   onUpdate(function() {
     this.blog.position.y = i.y;
     this.panel.material.opacity = i.opacity;
-    this.image.material.opacity= i.imageOpacity
+    this.skyImage.material.opacity = i.imageOpacity
   }.bind(this)).start();
 
 }
