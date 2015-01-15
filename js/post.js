@@ -3,7 +3,7 @@ function Post(content, position, imageURL, videoURL) {
 
   var self = this;
 
-
+  this.distanceFromUser = 2000
   this.blog = G.textFactory.createMesh(content, {
       color: new THREE.Color(0x00ff00)
     })
@@ -23,6 +23,8 @@ function Post(content, position, imageURL, videoURL) {
   scene.add(this.panel)
   this.panel.add(this.blog);
   this.panel.lookAt(camera.position);
+  this.originalPosition = this.panel.position.clone();
+  this.originalRotation = this.panel.rotation.clone();
   this.blog.scale.set(2, 2, 1)
 
   this.originalHeight = 10;
@@ -97,15 +99,20 @@ function Post(content, position, imageURL, videoURL) {
 
   this.panel.hoverOut = function() {
     this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
+    if(this.newSpot){
+      this.fly(this.originalPosition, this.originalRotation)
+    }
   }.bind(this);
 
   this.panel.select = function() {
-    this.flyIn() 
+    var target = G.customControls.camObject().clone().translateZ(-this.distanceFromUser);
+    this.fly(target.position, target.rotation) 
   }.bind(this);
+
 
 }
 
-Post.prototype.flyIn = function() {
+Post.prototype.fly = function(position, rotation) {
   var i = {
     x: this.panel.position.x,
     z: this.panel.position.z,
@@ -114,13 +121,12 @@ Post.prototype.flyIn = function() {
     rotZ: this.panel.rotation.z,
   }
 
-  var target = G.customControls.camObject().clone().translateZ(-1000)
   var f = {
-    x: target.position.x,
-    z: target.position.z,
-    rotY: target.rotation.y,
-    rotX: target.rotation.x,
-    rotZ: target.rotation.z,
+    x: position.x,
+    z: position.z,
+    rotY: rotation.y,
+    rotX: rotation.x,
+    rotZ: rotation.z,
   }
   var flyTween = new TWEEN.Tween(i).
   to(f, 1000).
@@ -128,7 +134,9 @@ Post.prototype.flyIn = function() {
     this.panel.position.set(i.x, this.panel.position.y, i.z);
     this.panel.rotation.set(i.rotX, i.rotY, i.rotZ);
   }.bind(this)).start();
-  flyTween.onComplete(function() {}.bind(this));
+  flyTween.onComplete(function() {
+    this.newSpot = true;
+  }.bind(this));
 
 }
 
