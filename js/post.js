@@ -1,4 +1,4 @@
-function Post(content, position, imageURL) {
+function Post(content, position, imageURL, videoURL) {
 
 
   var self = this;
@@ -36,35 +36,46 @@ function Post(content, position, imageURL) {
   this.hoveredImageOpacity = 1.0;
   this.hoveredOpacity = 0.9;
   this.hoveredHeight = this.blog.position.y + 10;
-
+  var imageMaterial;
   if (imageURL) {
-    THREE.ImageUtils.loadTexture(imageURL, undefined, function(texture) {
-      var material = new THREE.MeshBasicMaterial({
-        map: texture,
-        transparent: true,
-        opacity: this.originalImageOpacity,
-        side: THREE.DoubleSide,
-      })
 
-      var imageScale = 15;
-      var radius = 1100;
-      //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
-      var geo =  new THREE.SphereGeometry(radius, 16, 8, -Math.PI * 1.2, Math.PI * 1.6, 1, 1.2);
-      this.skyImage = new THREE.Mesh(geo, material);
-      this.skyImage.rotation.y -= 0.2
-      this.skyImage.doubleSided = true;
-      this.skyImage.position.z = -15000
-      this.skyImage.scale.multiplyScalar(imageScale)
-      this.skyImage.position.y = (radius/2 * imageScale)
-      this.skyImage.renderDepth = 10
-      scene.add(this.skyImage)
-    }.bind(this));
+    imageMaterial = new THREE.MeshBasicMaterial({
+      map: THREE.ImageUtils.loadTexture(imageURL),
+      transparent: true,
+      opacity: this.originalImageOpacity,
+      side: THREE.DoubleSide,
+    });
+  } else if (videoURL) {
+    var video = document.createElement('video');
+    video.id = "video";
+    video.src = videoURL
+    video.load();
+    video.play();
 
-
+    var texture = new THREE.VideoTexture(video);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBFormat;
+    imageMaterial = new THREE.MeshBasicMaterial({
+      map: texture
+    });
   }
+
+  var imageScale = 15;
+  var radius = 1100;
+  //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
+  var geo = new THREE.SphereGeometry(radius, 16, 8, -Math.PI * 1.2, Math.PI * 1.6, 1, 1.2);
+  this.skyImage = new THREE.Mesh(geo, imageMaterial);
+  this.skyImage.rotation.y -= 0.2
+  this.skyImage.doubleSided = true;
+  this.skyImage.position.z = -15000
+  this.skyImage.scale.multiplyScalar(imageScale)
+  this.skyImage.position.y = (radius / 2 * imageScale)
+  this.skyImage.renderDepth = 10
+  scene.add(this.skyImage)
   this.panel.hoverOver = function() {
     //fade old Image
-    if(G.hoveredPost){
+    if (G.hoveredPost) {
       console.log('FADE')
       G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalOpacity, G.hoveredPost.originalImageOpacity);
     }
@@ -75,7 +86,7 @@ function Post(content, position, imageURL) {
 
   this.panel.hoverOut = function() {
     this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
-    // G.hoveredPost = null;
+      // G.hoveredPost = null;
   }.bind(this);
 
   this.panel.select = function() {
@@ -112,6 +123,7 @@ Post.prototype.flyIn = function() {
 }
 
 Post.prototype.hover = function(pos, opacity, imageOpacity) {
+  if (!this.skyImage) return
   var i = {
     y: this.blog.position.y,
     opacity: this.panel.material.opacity,
@@ -130,8 +142,8 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
     this.panel.material.opacity = i.opacity;
     this.skyImage.material.opacity = i.imageOpacity
   }.bind(this)).start();
-
 }
+
 
 
 Post.prototype.scrollText = function(event) {

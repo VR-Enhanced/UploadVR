@@ -46,6 +46,7 @@ Posts.prototype.createPosts = function(posts) {
   var radius = 3000;
   var position = new THREE.Vector3();
 
+
   for (var i = 0; i < posts.length; i++) {
     //we need to create one big string from this guy, with new lines and such
     post = posts[i];
@@ -74,7 +75,7 @@ Posts.prototype.createPosts = function(posts) {
     var segment = (-Math.PI) + i / posts.length * (Math.PI * 1.1);
     position.x = radius * Math.cos(segment);
     position.z = radius * Math.sin(segment);
-    new Post(string, position, post.imageURL);
+    new Post(string, position, post.imageURL, post.videoURL);
   }
 
 }
