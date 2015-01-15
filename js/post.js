@@ -48,6 +48,7 @@ function Post(content, position, imageURL, videoURL) {
     this.video = document.createElement('video');
 
     this.video.src = videoURL
+    this.video.loop = true;
 
     var texture = new THREE.VideoTexture(this.video);
     texture.minFilter = THREE.LinearFilter;
