@@ -48,7 +48,7 @@ function Post(content, position, imageURL, videoURL) {
     this.video = document.createElement('video');
 
     this.video.src = videoURL
-    this.video.loop = true;
+    this.video.loop = "loop";
 
     var texture = new THREE.VideoTexture(this.video);
     texture.minFilter = THREE.LinearFilter;
@@ -81,18 +81,23 @@ function Post(content, position, imageURL, videoURL) {
     //fade old Image
     if (G.hoveredPost) {
       G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalOpacity, G.hoveredPost.originalImageOpacity);
+      //the old post is a video, we want to stop that!
+      if(G.hoveredPost.video){
+        G.hoveredPost.video.pause()
+      }
     }
-    if(this.videoURL){
+    //if new post is video, we want to play
+    if(this.video){
       this.video.play();
     }
     G.hoveredPost = this;
 
     this.hover(this.hoveredHeight, this.hoveredOpacity, this.hoveredImageOpacity);
   }.bind(this);
+ 
 
   this.panel.hoverOut = function() {
     this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
-      // G.hoveredPost = null;
   }.bind(this);
 
   this.panel.select = function() {
