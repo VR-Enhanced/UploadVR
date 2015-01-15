@@ -14,7 +14,7 @@ function Post(content, position, imageURL) {
     transparent: true,
     opacity: this.originalOpacity,
     side: THREE.DoubleSide
-  })
+  });
   this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(45, 500), mat)
   this.panel.renderDepth = 10
   this.panel.position.copy(position);
@@ -48,6 +48,7 @@ function Post(content, position, imageURL) {
       this.image.scale.multiplyScalar(imageScale)
       this.image.position.z = -20000;
       this.image.position.y += texture.image.height/2 * imageScale
+      this.image.position.x = 
       this.image.renderDepth = 10
     }.bind(this));
   }
@@ -98,7 +99,7 @@ Post.prototype.flyIn = function(){
 Post.prototype.hover = function(pos, opacity, imageOpacity) {
   var i = {
     y: this.blog.position.y,
-    opacity: this.panel.opacity,
+    opacity: this.panel.material.opacity,
     imageOpacity: this.image.material.opacity
   };
 
