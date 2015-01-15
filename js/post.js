@@ -9,7 +9,7 @@ function Post(content, position, imageURL, videoURL) {
     })
     // this.blog.doubleSided = true;
   this.blog.frustumCulled = false
-
+  this.videoURL = videoURL;
   this.originalOpacity = 0.2
   var mat = new THREE.MeshBasicMaterial({
     color: 0x150026,
@@ -43,22 +43,26 @@ function Post(content, position, imageURL, videoURL) {
       map: THREE.ImageUtils.loadTexture(imageURL),
       transparent: true,
       opacity: this.originalImageOpacity,
-      side: THREE.DoubleSide,
+      side: THREE.DoubleSide
     });
   } else if (videoURL) {
-    var video = document.createElement('video');
-    video.id = "video";
-    video.src = videoURL
-    video.load();
-    video.play();
+    this.video = document.createElement('video');
 
-    var texture = new THREE.VideoTexture(video);
+    this.video.src = videoURL
+    this.video.load();
+    // this.video.type = ' video/mp4; codecs="avc1.42E01E, mp4a.40.2" ';
+    var texture = new THREE.VideoTexture(this.video);
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.format = THREE.RGBFormat;
     imageMaterial = new THREE.MeshBasicMaterial({
-      map: texture
+      map: texture,
+      transparent: true,
+      opacity: this.originalOpacity,
+      side: THREE.DoubleSide
     });
+
+
   }
 
   var imageScale = 15;
@@ -76,8 +80,10 @@ function Post(content, position, imageURL, videoURL) {
   this.panel.hoverOver = function() {
     //fade old Image
     if (G.hoveredPost) {
-      console.log('FADE')
       G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalOpacity, G.hoveredPost.originalImageOpacity);
+    }
+    if(this.videoURL){
+      this.video.play();
     }
     G.hoveredPost = this;
 
