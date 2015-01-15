@@ -1,4 +1,4 @@
-	var scene, renderer, cssRenderer, camera, vrControls, container, effect, stats, background;
+	var scene, renderer, camera, vrControls, container, effect, stats, background;
 	var water, mirrorMesh, waterNormals;
 	var posts;
 	var oceanSize = 20000;
@@ -32,7 +32,7 @@
 	function init() {
 
 
-		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 20000);
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 100000);
 		scene = new THREE.Scene();
 		scene.add(camera);
 		renderer = new THREE.WebGLRenderer({
@@ -60,9 +60,6 @@
 			}
 		});
 
-		cssRenderer = new THREE.CSS3DRenderer();
-		cssRenderer.domElement.style.position = 'fixed';
-		document.body.appendChild(cssRenderer.domElement);
 
 
 		waterNormals = new THREE.ImageUtils.loadTexture('img/waternormals.jpg');
@@ -101,7 +98,6 @@
 		water.material.uniforms.time.value += timeInc;
 		water.render();
 		effect.render(scene, camera);
-		cssRenderer.render(scene, camera);
 		G.customControls.update();
 		G.objectControls.update();
 		TWEEN.update();
@@ -113,7 +109,6 @@
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
 		effect.setSize(window.innerWidth, window.innerHeight);
-		cssRenderer.setSize(window.innerWidth, window.innerHeight);
 
 	}
 

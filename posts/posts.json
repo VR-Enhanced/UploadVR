@@ -5,6 +5,7 @@
       "title": "Qualcomm has Computer Vision on Lockdown",
        "author": "Matthew Tunrdrup",
        "date": "01/13/15",
+       "imageURL": "blogphotos/omni.jpg",
        "paragraphs": [
         "This year at the Consumer Electronics Show (CES) marked the arrival of consumer virtual reality headsets as various types of VR technologies flooded the scene. Yet at the same time, augmented reality and computer vision techniques burst into the conference showing clues that the future of optical computing might eventually produce a fashionable set of powerful glasses; which will hit the mainstream like nothing ever seen before.",
         "Hints of this idea sprouted up here and there during CES. One of the biggest indications of the possible effects of integrating VR and AR was noticed through the impact that the American superconductor company known as Qualcomm had at the show.",
@@ -32,6 +33,7 @@
       "title": "The Omni belongs in the gym, not the living room",
       "author": "Will Mason",
       "date": "01/10/2015",
+      "imageURL": "blogphotos/omni.jpg",
       "paragraphs": [
         "There was a lot of hype surrounding the debut of the Virtuix Omni at this year's International CES. Ever since the company premiered on Kickstarter, there has been a portion of the VR community who have questioned its potential for success. There are a number of reasons for this, it's large, weighing in at about 160lbs, with a footprint of 47”x42”x27” meaning that if you don't have a room dedicated to it, one might run into issues with space. Secondly, many have pointed out that you need to hang the Rift cables from the ceiling, to prevent you from tripping all over yourself. Both of these are issues that make this device not one that is suited for the mass gaming market… and that is totally ok.",
         "The Omni is a fantastic device. It is smooth and accurate, as well as entertaining, but Jan – the CEO of Virtiux, himself admits “it's not for everybody.” Where it does fit, however, is as a “home exercise device,” a product category that is obviously quite successful. So, changing ones perspective on the use cases for this product, it can be easy to see why the Omni could help revolutionize the way we run at home.",
@@ -48,6 +50,7 @@
       "title": "Oovoo plans to bring their 120 million users to VR, exclusive report",
       "author": "Will Mason",
       "date": "01/08/15",
+      "imageURL": "blogphotos/omni.jpg",
       "paragraphs": [
         "Oovoo, one of the leading social media companies in the world, is getting into the VR space, according to JP Nauseef the company's managing director. In an exclusive interview with Upload, Nauseef and CMO Chris Wire revealed the company has plans to integrate its platform with Oculus VR.",
         "“The universe of possibilities is virtually endless,” said Nauseef, “we are picking the applications very carefully but integration with Oculus is one of those.” When pressed for further details Nauseef remained coy, “we want to save some surprises for later.” However, he promised that further announcements in the next two quarters and hinted at the mobile world conference and Barcelona being the place where the platform will be revealed. “This is the year, it's going to be exciting.”",
@@ -60,6 +63,7 @@
       "title": "Oculus shows off the Crescent Bay at CES 2015, and its better than you can imagine",
       "author": "Will Mason",
       "date": "01/06/15",
+      "imageURL": "blogphotos/omni.jpg",
       "paragraphs": [
         "The International CES is now officially underway, so of course I woke up early and made a bee-line for the Oculus booth, which is thoroughly impressive in and of itself. A two story well appointed behemoth, it's clear that Oculus is a centerpiece at this year's CES. But enough about the booth, lets get right to the thing we have all been so excited to see, the new Crescent Bay.",
         "This was my first time getting the chance to try on the new prototype, which many are speculating is the last version before CV1, so I was obviously super pumped to try it on and I will tell you right now, I hadn't even prepared myself for the level of epicness that I witnessed within the demo. It was seriously that good, and if there are any skeptics still out there, be ready to have your skepticism completely washed away.",
@@ -79,6 +83,7 @@
       "title": "Samsung debuts milkvrat CES announces partnerships with the nba and walking dead producer david alpert",
       "author": "Will Mason",
       "date": "01/06/15",
+      "imageURL": "blogphotos/omni.jpg",
       "paragraphs": [
         "CES has barely gotten under way, and already the VR announcements are coming in. During today's press conference, Samsung announced MilkVR, an immersive video platform for the GearVR, available today from the Oculus Share store.",
         "MilkVR offers a daily stream of 360-degree videos that, according to Tim Baxter, president and COO of Samsung North America, “will make the GearVR a must have.” The app will launch with 30 new titles and promises to deliver new content daily, “from music and sports to action and lifestyle so there's always something fresh.” This could very well be the long awaited “Youtube of VR content” that we have been waiting for and as Baxter put it brings consumer VR to “more than within our reach.”",
@@ -91,6 +96,7 @@
       "title": "The Last Hurdles: The Remaining Challenges for Consumer Virtual Reality (Part 2)",
       "author": "AJ Tavakoli",
       "date": "01/02/15",
+      "imageURL": "blogphotos/omni.jpg",
       "paragraphs": [
       "INPUT DEVICES",
       "As a VR developer, the biggest problem I face currently is input devices.  Many VR applications use gamepads or keyboard and mouse for controls, but these devices are inadequate for VR.  You need to be able to use your hands in VR to truly feel a sense of presence.  The problem lies in the fact that different applications require different types of interactions, and there is not any single device that is perfect for all of them.  Devices such as the Leap Motion use a depth camera to track the position of your hands.  This works well for applications that require simple gestures and just need the position of your hands.  Historically, the glove is one of the primary input devices used in VR.  Control VR is a glove system being developed for the consumer VR market.  Gloves are perfect for applications that involve manipulating and grasping objects with your hands.  Games, especially first person shooters, call for a different type of interaction since not only do these games need the position of your hands but they also require you to press buttons to shoot your gun or open a menu.  Currently it is unlikely that you own an Omni, so you will also need joysticks to move your character in the game world.  For these games a controller like the STEM system from Sixense works best.  The STEM system features two controllers that you hold that track the position of your hands.  Each controller is wireless and features joysticks and buttons, making it the perfect controller for games and some other applications.",

@@ -74,7 +74,7 @@ Posts.prototype.createPosts = function(posts) {
     var segment = (-Math.PI * 1.1) + i / posts.length * (Math.PI * 1.1);
     position.x = radius * Math.cos(segment);
     position.z = radius * Math.sin(segment);
-    new Post(string, position);
+    new Post(string, position, post.imageURL);
   }
 
 }
