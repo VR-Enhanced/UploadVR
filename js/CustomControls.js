@@ -1,8 +1,10 @@
 var CustomControls;
+G.userHeight = 200;
 
 CustomControls = (function() {
   function CustomControls() {
     G.speed = 8000;
+    var userStartZ = 5000;
     var vrInput;
     var onVRDevices = function(devices) {
 
@@ -23,14 +25,14 @@ CustomControls = (function() {
     };
 
     if (navigator.getVRDevices !== undefined) {
-
+      this.setPosition(new THREE.Vector3(0, G.userHeight, userStartZ))
       navigator.getVRDevices().then(onVRDevices);
 
 
     } else {
       G.pointerLock = true;
-      console.log('Your browser is not VR Ready');
       G.controls = new THREE.PointerLockControls(camera);
+      this.setPosition(new THREE.Vector3(0, G.userHeight, userStartZ))
       scene.add(G.controls.getObject());
       document.addEventListener('click', function(event) {
         if (G.controls.enabled) {
@@ -76,6 +78,15 @@ CustomControls = (function() {
     } else {
       return camera.position
     }
+  }
+
+  CustomControls.prototype.setPosition = function(position){
+    if(G.pointerLock) {
+      G.controls.getObject().position.copy(position);
+    } else {
+      camera.position.copy(position)
+    }
+
   }
 
   CustomControls.prototype.camObject = function(){

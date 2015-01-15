@@ -43,7 +43,7 @@ Posts.prototype.createPosts = function(posts) {
   var post;
   var wordsPerLine = 8;
   var words;
-  var radius = 4000;
+  var radius = 3000;
   var position = new THREE.Vector3();
 
   for (var i = 0; i < posts.length; i++) {
@@ -71,7 +71,7 @@ Posts.prototype.createPosts = function(posts) {
     });
 
     //Set up posts in semicircle around user
-    var segment = (-Math.PI * 1.1) + i / posts.length * (Math.PI * 1.1);
+    var segment = (-Math.PI) + i / posts.length * (Math.PI * 1.1);
     position.x = radius * Math.cos(segment);
     position.z = radius * Math.sin(segment);
     new Post(string, position, post.imageURL);

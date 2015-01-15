@@ -5,7 +5,6 @@
 	var timeInc = 1 / 60;
 	G.clock = new THREE.Clock();
 	G.shaders = new ShaderLoader('shaders');
-	G.userHeight = 200;
 	G.bgColor = new THREE.Color().setHex(0x060009)
 
 

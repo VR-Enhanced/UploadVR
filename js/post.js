@@ -51,9 +51,9 @@ function Post(content, position, imageURL) {
       //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
       var geo =  new THREE.SphereGeometry(radius, 16, 8, -Math.PI * 1.2, Math.PI * 1.6, 1, 1.2);
       this.skyImage = new THREE.Mesh(geo, material);
-      this.skyImage.rotation.y += 0.2
+      this.skyImage.rotation.y -= 0.2
       this.skyImage.doubleSided = true;
-      // this.skyImage.position.z = -5000
+      this.skyImage.position.z = -15000
       this.skyImage.scale.multiplyScalar(imageScale)
       this.skyImage.position.y = (radius/2 * imageScale)
       this.skyImage.renderDepth = 10
