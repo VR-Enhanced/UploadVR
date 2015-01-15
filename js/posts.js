@@ -72,7 +72,7 @@ Posts.prototype.createPosts = function(posts) {
     });
 
     //Set up posts in semicircle around user
-    var segment = (-Math.PI) + i / posts.length * (Math.PI * 1.1);
+    var segment = (-Math.PI- .11) + i / posts.length * (Math.PI * 1.1);
     position.x = radius * Math.cos(segment);
     position.z = radius * Math.sin(segment);
     new Post(string, position, post.imageURL, post.videoURL);
