@@ -6,11 +6,13 @@ function Post(content, position, imageURL, videoURL) {
   this.originalImageOpacity = 0.0;
   this.hoveredImageOpacity = 1.0;
 
-  this.originalOpacity = 0.2
-  this.hoveredOpacity = 0.9;
+  this.originalPanelOpacity = 0.5
+  this.hoveredPanelOpacity = 0.9;
 
-  this.originalHeight = 0;
-  this.hoveredHeight = 10;
+  this.originalHeight = G.userHeight/2;
+  this.hoveredHeight = G.userHeight;
+
+  this.panelWidth = 1100;
 
   this.distanceFromUser = 900
   this.blog = G.textFactory.createMesh(content, {
@@ -21,23 +23,22 @@ function Post(content, position, imageURL, videoURL) {
   var mat = new THREE.MeshBasicMaterial({
     color: 0x150026,
     transparent: true,
-    opacity: this.originalOpacity,
+    opacity: this.originalPanelOpacity,
     side: THREE.DoubleSide
   });
-  var width = 70;
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(width, 500), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(this.panelWidth, 10000), mat)
   this.panel.renderDepth = 9
   this.panel.position.copy(position);
-  this.panel.scale.set(20, 20, 1);
+  // this.panel.scale.set(1, 20, 1);
   scene.add(this.panel)
   this.panel.add(this.blog);
   this.panel.lookAt(new THREE.Vector3());
   this.originalPosition = this.panel.position.clone();
   this.originalRotation = this.panel.rotation.clone();
-  this.blog.scale.set(2, 2, 1)
+  this.blog.scale.set(40, 40, 1)
 
-  var margin = 10;
-  this.blog.position.set(-width/2 + 5 , this.originalHeight, .1);
+  var margin = 100;
+  this.blog.position.set(-this.panelWidth/2 + margin , this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
@@ -73,7 +74,7 @@ function Post(content, position, imageURL, videoURL) {
   }
 
   var imageScale = 1.0;
-  var radius = 40000;
+  var radius = 100000;
   //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
   // var geo = new THREE.SphereGeometry(radius, 64, 16, Math.PI - .6, Math.PI * 1.8, 0.4, Math.PI * 0.55);
   var geo = new THREE.SphereGeometry(radius, 64, 16, -Math.PI * 1.2, Math.PI * 1.8, 0.4, Math.PI * 0.55);
@@ -87,7 +88,7 @@ function Post(content, position, imageURL, videoURL) {
   this.panel.hoverOver = function() {
     //fade old Image
     if (G.hoveredPost) {
-      G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalOpacity, G.hoveredPost.originalImageOpacity);
+      G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalPanelOpacity, G.hoveredPost.originalImageOpacity);
       //the old post is a video, we want to stop that!
       if (G.hoveredPost.video) {
         G.hoveredPost.video.pause()
@@ -99,12 +100,12 @@ function Post(content, position, imageURL, videoURL) {
     }
     G.hoveredPost = this;
 
-    this.hover(this.hoveredHeight, this.hoveredOpacity, this.hoveredImageOpacity);
+    this.hover(this.hoveredHeight, this.hoveredPanelOpacity, this.hoveredImageOpacity);
   }.bind(this);
 
 
   this.panel.hoverOut = function() {
-    this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
+    this.hover(this.originalHeight, this.originalPanelOpacity, this.hoveredImageOpacity)
     if (!this.flying) {
       this.fly(this.originalPosition, this.originalRotation)
     }
@@ -174,5 +175,5 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
 
 
 Post.prototype.scrollText = function(event) {
-  this.blog.position.y -= event.deltaY / 100
+  this.blog.position.y -= event.deltaY / 10
 }
