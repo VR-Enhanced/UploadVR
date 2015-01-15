@@ -99,7 +99,7 @@ function Post(content, position, imageURL, videoURL) {
 
   this.panel.hoverOut = function() {
     this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
-    if(this.newSpot){
+    if(!this.flying){
       this.fly(this.originalPosition, this.originalRotation)
     }
   }.bind(this);
@@ -128,14 +128,15 @@ Post.prototype.fly = function(position, rotation) {
     rotX: rotation.x,
     rotZ: rotation.z,
   }
+  this.flying = true;
   var flyTween = new TWEEN.Tween(i).
   to(f, 1000).
   onUpdate(function() {
     this.panel.position.set(i.x, this.panel.position.y, i.z);
-    this.panel.rotation.set(this.panel.rotation.x, i.rotY, this.panel.rotation.z);
+    this.panel.rotation.set(0, i.rotY, 0);
   }.bind(this)).start();
   flyTween.onComplete(function() {
-    this.newSpot = true;
+    this.flying = false;
   }.bind(this));
 
 }
