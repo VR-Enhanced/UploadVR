@@ -3,7 +3,7 @@ function Post(content, position, imageURL, videoURL) {
 
   var self = this;
 
-  this.distanceFromUser = 2000
+  this.distanceFromUser = 1300
   this.blog = G.textFactory.createMesh(content, {
       color: new THREE.Color(0x00ff00)
     })
@@ -28,7 +28,7 @@ function Post(content, position, imageURL, videoURL) {
   this.blog.scale.set(2, 2, 1)
 
   this.originalHeight = 10;
-  this.blog.position.set(-40, this.originalHeight, .1);
+  this.blog.position.set(-30, this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
