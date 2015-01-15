@@ -32,7 +32,7 @@ function Post(content, position, imageURL) {
 
   this.originalImageOpacity = 0.0;
   this.hoveredImageOpacity =  1.0;
-  this.hoveredOpacity = 0.5;
+  this.hoveredOpacity = 0.9;
   this.hoveredHeight = this.blog.position.y + 10;
 
   var imageScale = 10;
