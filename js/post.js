@@ -17,7 +17,7 @@ function Post(content, position, imageURL) {
     opacity: this.originalOpacity,
     side: THREE.DoubleSide
   });
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(80, 500), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(90, 500), mat)
   this.panel.renderDepth = 10
   this.panel.position.copy(position);
   this.panel.scale.set(20, 20, 1);
@@ -27,7 +27,7 @@ function Post(content, position, imageURL) {
   this.blog.scale.set(2, 2, 1)
 
   this.originalHeight = 10;
-  this.blog.position.set(-30, this.originalHeight, .1);
+  this.blog.position.set(-40, this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
@@ -37,7 +37,6 @@ function Post(content, position, imageURL) {
   this.hoveredOpacity = 0.9;
   this.hoveredHeight = this.blog.position.y + 10;
 
-  var imageScale = 100;
   if (imageURL) {
     THREE.ImageUtils.loadTexture(imageURL, undefined, function(texture) {
       var material = new THREE.MeshBasicMaterial({
@@ -47,12 +46,14 @@ function Post(content, position, imageURL) {
         side: THREE.DoubleSide,
       })
 
-      var radius = 500;
+      var imageScale = 15;
+      var radius = 1100;
       //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
-      var geo =  new THREE.SphereGeometry(radius, 16, 8, Math.PI/2 +1, Math.PI * 1.3, 1, 1.2);
+      var geo =  new THREE.SphereGeometry(radius, 16, 8, -Math.PI * 1.2, Math.PI * 1.6, 1, 1.2);
       this.skyImage = new THREE.Mesh(geo, material);
+      this.skyImage.rotation.y += 0.2
       this.skyImage.doubleSided = true;
-      this.skyImage.position.z = -20000
+      // this.skyImage.position.z = -5000
       this.skyImage.scale.multiplyScalar(imageScale)
       this.skyImage.position.y = (radius/2 * imageScale)
       this.skyImage.renderDepth = 10
@@ -62,17 +63,23 @@ function Post(content, position, imageURL) {
 
   }
   this.panel.hoverOver = function() {
+    //fade old Image
+    if(G.hoveredPost){
+      console.log('FADE')
+      G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalOpacity, G.hoveredPost.originalImageOpacity);
+    }
     G.hoveredPost = this;
+
     this.hover(this.hoveredHeight, this.hoveredOpacity, this.hoveredImageOpacity);
   }.bind(this);
 
   this.panel.hoverOut = function() {
     this.hover(this.originalHeight, this.originalOpacity, this.hoveredImageOpacity)
-    G.hoveredPost = null;
+    // G.hoveredPost = null;
   }.bind(this);
 
   this.panel.select = function() {
-    this.flyIn()
+    // this.flyIn() 
   }.bind(this);
 
 }

@@ -82,6 +82,7 @@
 		mirrorMesh.add(water);
 		mirrorMesh.rotation.x = -Math.PI * 0.5;
 		scene.add(mirrorMesh);
+		G.objectControls.add(mirrorMesh)
 
 		posts = new Posts();
 		background = new Background();
