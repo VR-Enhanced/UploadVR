@@ -7,7 +7,6 @@ function Post(content, position, imageURL, videoURL) {
   this.blog = G.textFactory.createMesh(content, {
       color: new THREE.Color(0x00ff00)
     })
-    // this.blog.doubleSided = true;
   this.blog.frustumCulled = false
   this.videoURL = videoURL;
   this.originalOpacity = 0.2
@@ -18,7 +17,7 @@ function Post(content, position, imageURL, videoURL) {
     side: THREE.DoubleSide
   });
   this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(90, 500), mat)
-  this.panel.renderDepth = 10
+  this.panel.renderDepth = 9
   this.panel.position.copy(position);
   this.panel.scale.set(20, 20, 1);
   scene.add(this.panel)
@@ -43,14 +42,13 @@ function Post(content, position, imageURL, videoURL) {
       map: THREE.ImageUtils.loadTexture(imageURL),
       transparent: true,
       opacity: this.originalImageOpacity,
-      side: THREE.DoubleSide
+      side: THREE.BackSide
     });
   } else if (videoURL) {
     this.video = document.createElement('video');
 
     this.video.src = videoURL
-    this.video.load();
-    // this.video.type = ' video/mp4; codecs="avc1.42E01E, mp4a.40.2" ';
+
     var texture = new THREE.VideoTexture(this.video);
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
@@ -58,8 +56,8 @@ function Post(content, position, imageURL, videoURL) {
     imageMaterial = new THREE.MeshBasicMaterial({
       map: texture,
       transparent: true,
-      opacity: this.originalOpacity,
-      side: THREE.DoubleSide
+      opacity: this.originalImageOpacity,
+      side: THREE.BackSide
     });
 
 
@@ -73,9 +71,10 @@ function Post(content, position, imageURL, videoURL) {
   this.skyImage.rotation.y -= 0.2
   this.skyImage.doubleSided = true;
   this.skyImage.position.z = -15000
+  this.skyImage.renderDepth = 10;
+
   this.skyImage.scale.multiplyScalar(imageScale)
   this.skyImage.position.y = (radius / 2 * imageScale)
-  this.skyImage.renderDepth = 10
   scene.add(this.skyImage)
   this.panel.hoverOver = function() {
     //fade old Image
