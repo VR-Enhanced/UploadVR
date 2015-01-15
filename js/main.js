@@ -1,7 +1,7 @@
 	var scene, renderer, camera, vrControls, container, effect, stats, background;
 	var water, mirrorMesh, waterNormals;
 	var posts;
-	var oceanSize = 20000;
+	var oceanSize = 100000;
 	var timeInc = 1 / 60;
 	G.clock = new THREE.Clock();
 	G.shaders = new ShaderLoader('shaders');
@@ -31,7 +31,7 @@
 	function init() {
 
 
-		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 200000);
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 500000);
 		scene = new THREE.Scene();
 		scene.add(camera);
 		renderer = new THREE.WebGLRenderer({

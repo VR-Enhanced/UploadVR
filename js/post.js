@@ -66,15 +66,15 @@ function Post(content, position, imageURL, videoURL) {
 
   }
 
-  var imageScale = 1;
-  var radius = 15000;
+  var imageScale = 1.0;
+  var radius = 40000;
   //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
-  var geo = new THREE.SphereGeometry(radius, 32, 16, Math.PI - .6, Math.PI * 1.8, 0.4, Math.PI/1.6);
+  // var geo = new THREE.SphereGeometry(radius, 64, 16, Math.PI - .6, Math.PI * 1.8, 0.4, Math.PI * 0.55);
+  var geo = new THREE.SphereGeometry(radius, 64, 16, -Math.PI * 1.2, Math.PI * 1.8, 0.4, Math.PI * 0.55);
   this.skyImage = new THREE.Mesh(geo, imageMaterial);
-  this.skyImage.rotation.y -= 0.2
   // this.skyImage.position.z = -15000
   this.skyImage.renderDepth = 10;
-
+  this.skyImage.rotation.y = -0.3
   this.skyImage.scale.multiplyScalar(imageScale)
   this.skyImage.position.y = (radius / 2 * imageScale)
   scene.add(this.skyImage)
