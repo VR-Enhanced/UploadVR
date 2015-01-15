@@ -24,7 +24,8 @@ function Post(content, position, imageURL, videoURL) {
     opacity: this.originalOpacity,
     side: THREE.DoubleSide
   });
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(70, 500), mat)
+  var width = 70;
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(width, 500), mat)
   this.panel.renderDepth = 9
   this.panel.position.copy(position);
   this.panel.scale.set(20, 20, 1);
@@ -35,8 +36,8 @@ function Post(content, position, imageURL, videoURL) {
   this.originalRotation = this.panel.rotation.clone();
   this.blog.scale.set(2, 2, 1)
 
-
-  this.blog.position.set(-15, this.originalHeight, .1);
+  var margin = 10;
+  this.blog.position.set(-width/2 + 5 , this.originalHeight, .1);
 
 
   G.objectControls.add(this.panel);
@@ -111,6 +112,7 @@ function Post(content, position, imageURL, videoURL) {
 
   this.panel.select = function() {
     var target = G.customControls.camObject().clone().translateZ(-this.distanceFromUser);
+    target.translateX(220);
     this.fly(target.position, target.rotation)
   }.bind(this);
 
@@ -160,7 +162,7 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
     imageOpacity: imageOpacity
   };
   var hoverTween = new TWEEN.Tween(i).
-  to(f, 500).
+  to(f, 700).
   onUpdate(function() {
     this.panel.position.y = i.y;
     this.blog.position.y = i.y;
