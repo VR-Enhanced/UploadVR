@@ -87,6 +87,7 @@
 		background = new Background();
 
 		var cursor = new THREE.Mesh(new THREE.SphereGeometry(.02, 32));
+		cursor.material.color.setHex(0xff0000);
 		cursor.translateZ(-5)
 		camera.add(cursor);
 		onResize();

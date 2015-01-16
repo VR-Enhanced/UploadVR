@@ -42,12 +42,13 @@ Posts.prototype.createPosts = function(posts) {
   var string;
   var post;
   var maxCharsPerLine = 20;
-  var curCharCount = 0;
+  var curCharCount;
   var radius = 400;
   var position = new THREE.Vector3();
 
 
   for (var i = 0; i < posts.length; i++) {
+    curCharCount = 0;
     //we need to create one big string from this guy, with new lines and such
     post = posts[i];
     string = "";

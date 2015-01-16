@@ -16,11 +16,10 @@ function Post(content, position, imageURL, videoURL) {
   this.panelColor = new THREE.Color(0x300042)
 
   this.panelWidth = 100;
-  this.panelHeight = 200;
+  this.panelHeight = 111;
 
   //point at which if user hovers off panel, it wont fly back to place
   this.cutoffHoverPoint = this.panelHeight/2 + this.originalHeight;
-  console.log("cutoff point", this.cutoffHoverPoint)
   this.distanceFromUser = 100
   this.blog = G.textFactory.createMesh(content, {
     color: new THREE.Color(0x00ff00)
@@ -114,7 +113,7 @@ function Post(content, position, imageURL, videoURL) {
 
 
   this.panel.hoverOut = function() {
-    if(G.objectControls.intersectedPoint.y > this.cutoffHoverPoint){
+    if( this.outOfPlace && G.objectControls.intersectedPoint.y > this.cutoffHoverPoint){
       return;
     }
     this.hover(this.originalHeight, this.originalPanelOpacity, this.hoveredImageOpacity)
