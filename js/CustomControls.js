@@ -108,6 +108,12 @@ CustomControls = (function() {
     }
   }
 
+  CustomControls.prototype.reset = function(){
+    if(!G.pointerLock){
+      G.controls.zeroSensor();
+    }
+  }
+
   return CustomControls;
 
 })();

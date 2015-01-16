@@ -11,7 +11,7 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.originalPanelOpacity = 0.6
   this.hoveredPanelOpacity = 0.9;
 
-  this.originalHeight = position.y -50 ;
+  this.originalHeight = position.y - 50;
   this.hoveredHeight = this.originalHeight + 100;
   this.blogHoveredHeightFactor = .2
   this.panelColor = new THREE.Color(0x300042)
@@ -20,7 +20,7 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.panelHeight = 220;
 
   this.textColor = new THREE.Color(0x00ff00)
-  this.cutoffHoverPoint = this.panelHeight/2 + 10;
+  this.cutoffHoverPoint = this.panelHeight / 2 + 10;
 
   //point at which if user hovers off panel, it wont fly back to place
   this.distanceFromUser = 100
@@ -29,8 +29,6 @@ function Post(content, tag, position, imageURL, videoURL) {
   })
   this.blog.frustumCulled = false
   this.videoURL = videoURL;
-
-
 
 
 
@@ -50,13 +48,13 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.originalRotation = this.panel.rotation.clone();
   this.panel.position.y = this.originalHeight;
 
-  this.blog.position.set(-this.panelWidth/2 + this.textMargin , this.originalHeight, .01);
+  this.blog.position.set(-this.panelWidth / 2 + this.textMargin, this.originalHeight, .01);
   this.blog.scale.set(4, 4, 1)
   var tagline = G.textFactory.createMesh(tag, {
     color: this.textColor
   });
   this.panel.add(tagline);
-  tagline.position.set(-this.panelWidth/2, this.cutoffHoverPoint, 10)
+  tagline.position.set(-this.panelWidth / 2, this.cutoffHoverPoint, 10)
   tagline.scale.multiplyScalar(17)
 
 
@@ -99,7 +97,7 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.skyImage = new THREE.Mesh(geo, imageMaterial);
   // this.skyImage.position.z = -15000
   this.skyImage.renderDepth = 10;
-  this.skyImage.rotation.y = -0.3
+  this.skyImage.rotation.y = -0.6
   this.skyImage.scale.multiplyScalar(imageScale)
   this.skyImage.position.y = (radius / 2 * imageScale)
   scene.add(this.skyImage)
@@ -114,16 +112,15 @@ function Post(content, tag, position, imageURL, videoURL) {
     }
     //if new post is video, we want to play
     if (this.video) {
-      this.video.play();
+        this.video.play();
     }
     G.hoveredPost = this;
-
     this.hover(this.hoveredHeight, this.hoveredPanelOpacity, this.hoveredImageOpacity);
   }.bind(this);
 
 
   this.panel.hoverOut = function() {
-    if( this.outOfPlace && G.objectControls.intersectedPoint.y > this.cutoffHoverPoint){
+    if (this.outOfPlace && G.objectControls.intersectedPoint.y > this.cutoffHoverPoint) {
       return;
     }
     this.hover(this.originalHeight, this.originalPanelOpacity, this.hoveredImageOpacity)
@@ -169,6 +166,16 @@ Post.prototype.fly = function(position, rotation, newPlace) {
     this.outOfPlace = newPlace;
   }.bind(this));
 
+}
+
+Post.prototype.reset = function() {
+  this.fly(this.originalPosition, this.originalRotation, false);
+  this.hover(this.originalHeight, this.originalPanelOpacity, this.originalImageOpacity)
+  if (this.video) {
+    this.video.pause();
+    this.isPlaying = false;
+    this.video.currentTime = 0;
+  }
 }
 
 Post.prototype.hover = function(pos, opacity, imageOpacity) {

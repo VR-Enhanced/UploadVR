@@ -43,7 +43,7 @@ Posts.prototype.createPosts = function(posts) {
   var post;
   var maxCharsPerLine = 20;
   var curCharCount;
-  var radius = 400;
+  var radius = 1000;
   var position = new THREE.Vector3();
 
 
@@ -62,6 +62,8 @@ Posts.prototype.createPosts = function(posts) {
         curCharCount = 0;
       }
     }
+    string+= "\n\n"
+    string += "By " + post.author;
     curCharCount = 0;
     string += '\n\n\n';
     _.each(post.paragraphs, function(paragraph) {

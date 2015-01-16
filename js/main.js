@@ -46,7 +46,7 @@
 		stats.domElement.style.left = '0px';
 		stats.domElement.style.top = '0px';
 
-		document.body.appendChild(stats.domElement);
+		// document.body.appendChild(stats.domElement);
 
 
 
@@ -125,6 +125,15 @@
 
 		if (event.charCode == 'f'.charCodeAt(0)) {
 			effect.setFullScreen(true);
+		}
+
+		if(event.charCode == 'z'.charCodeAt(0)){
+			G.customControls.reset();
+		}
+		if(event.charCode == 'r'.charCodeAt(0)){
+			if(G.hoveredPost){
+				G.hoveredPost.reset();
+			}
 		}
 	};
 	window.addEventListener("keypress", onkey, true);
