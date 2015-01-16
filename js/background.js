@@ -41,12 +41,14 @@ Background.prototype.generateStars = function() {
 
 Background.prototype.generateLogo = function() {
   this.emitters = [];
+  this.updateLogo = true;
   this.emitterParams = {
     colorStart: new THREE.Color(0x14642a),
     colorMiddle: new THREE.Color(0x14642a),
     colorEnd: new THREE.Color(0xff00ff),
     accelerationSpread: new THREE.Vector3(1., 1., 1.),
     sizeStart: 10,
+    sizeStartSpread: 5,
     opacityEnd: 0,
     particleCount: 20,
   }
@@ -61,11 +63,11 @@ Background.prototype.generateLogo = function() {
     height: 1
   });
   this.logoContainer = new THREE.Object3D();
-  this.logoContainer.position.set(-55, -20, G.userStartZ - 100)
+  this.logoContainer.position.set(-60, -20, G.userStartZ - 100)
   scene.add(this.logoContainer);
   this.logoMesh = new THREE.Mesh(textGeo);
   this.logoContainer.add(this.logoMesh);
-  var points = THREE.GeometryUtils.randomPointsInGeometry(this.logoMesh.geometry, 400);
+  var points = THREE.GeometryUtils.randomPointsInGeometry(this.logoMesh.geometry, 500);
   this.createEmitterPoints(points);
   this.logoGroup.mesh.renderDepth = -20
   this.logoContainer.add(this.logoGroup.mesh);
@@ -76,13 +78,13 @@ Background.prototype.generateLogo = function() {
     y: this.logoContainer.position.y
   };
   var f = {
-    y:  60
+    y:  80
   }
 
 
   setTimeout(function() {
     var logoTween = new TWEEN.Tween(i).
-    to(f, 5000).
+    to(f, 3000).
     onUpdate(function() {
       this.logoContainer.position.y = i.y
     }.bind(this)).start();
@@ -91,6 +93,7 @@ Background.prototype.generateLogo = function() {
       for(var i  =0; i < this.emitters.length; i++){
         this.emitters[i].disable()
       }
+      this.updateLogo = false;
     }.bind(this));
   }.bind(this), 2000);
 

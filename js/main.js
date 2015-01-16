@@ -41,12 +41,12 @@
 		renderer.domElement.style.position = "absolute";
 		document.body.appendChild(renderer.domElement);
 
-		stats = new Stats();
-		stats.domElement.style.position = 'absolute';
-		stats.domElement.style.left = '0px';
-		stats.domElement.style.top = '0px';
+		// stats = new Stats();
+		// stats.domElement.style.position = 'absolute';
+		// stats.domElement.style.left = '0px';
+		// stats.domElement.style.top = '0px';
 
-		document.body.appendChild(stats.domElement);
+		// document.body.appendChild(stats.domElement);
 
 
 
@@ -103,7 +103,7 @@
 		G.customControls.update();
 		G.objectControls.update();
 		TWEEN.update();
-		stats.update();
+		// stats.update();
 		background.update();
 	}
 
