@@ -1,5 +1,5 @@
 var CustomControls;
-G.userHeight = 400;
+G.userHeight = 50;
 
 CustomControls = (function() {
   function CustomControls() {

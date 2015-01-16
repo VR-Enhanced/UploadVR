@@ -31,7 +31,7 @@
 	function init() {
 
 
-		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerWidth, 1, 500000);
+		camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerWidth, 1, 500000);
 		scene = new THREE.Scene();
 		scene.add(camera);
 		renderer = new THREE.WebGLRenderer({

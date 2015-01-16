@@ -2,19 +2,21 @@ function Post(content, position, imageURL, videoURL) {
 
 
   var self = this;
-
+  this.textMargin = 2;
+  this.xTranslation = 10;
   this.originalImageOpacity = 0.0;
+  this.scrollFactor = .05
   this.hoveredImageOpacity = 1.0;
 
   this.originalPanelOpacity = 0.6
   this.hoveredPanelOpacity = 0.9;
 
-  this.originalHeight = G.userHeight/2;
+  this.originalHeight = position.y;
   this.hoveredHeight = G.userHeight;
   this.panelColor = new THREE.Color(0x300042)
 
-  this.panelWidth = 10000;
-  this.panelHeight = 10000;
+  this.panelWidth = 100;
+  this.panelHeight = 200;
 
   this.distanceFromUser = 100
   this.blog = G.textFactory.createMesh(content, {
@@ -37,8 +39,8 @@ function Post(content, position, imageURL, videoURL) {
   this.originalPosition = this.panel.position.clone();
   this.originalRotation = this.panel.rotation.clone();
 
-  var margin = 100;
-  this.blog.position.set(-this.panelWidth/2 + margin , this.originalHeight, 1);
+  this.blog.position.set(-this.panelWidth/2 + this.textMargin , this.originalHeight, 1);
+  this.blog.scale.set(4, 4, 1)
 
 
   G.objectControls.add(this.panel);
@@ -112,7 +114,7 @@ function Post(content, position, imageURL, videoURL) {
 
   this.panel.select = function() {
     var target = G.customControls.camObject().clone().translateZ(-this.distanceFromUser);
-    target.translateX(220);
+    target.translateX(this.xTranslation);
     this.fly(target.position, target.rotation)
   }.bind(this);
 
@@ -173,5 +175,5 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
 
 
 Post.prototype.scrollText = function(event) {
-  this.blog.position.y -= event.deltaY / 10
+  this.blog.position.y -= event.deltaY * this.scrollFactor;
 }

@@ -43,7 +43,7 @@ Posts.prototype.createPosts = function(posts) {
   var post;
   var maxCharsPerLine = 20;
   var curCharCount = 0;
-  var radius = 20000;
+  var radius = 400;
   var position = new THREE.Vector3();
 
 
@@ -55,11 +55,11 @@ Posts.prototype.createPosts = function(posts) {
     words = post.title.split(' ');
     for (var j = 0; j < words.length; j++) {
       string += words[j] + " ";
-      if (curCharCount > maxCharsPerLine) {
+      curCharCount += words[j].length;
+      if (curCharCount >= maxCharsPerLine) {
         string += "\n";
         curCharCount = 0;
       }
-      curCharCount += words[j].length;
     }
     curCharCount = 0;
     string += '\n\n\n';
@@ -68,11 +68,11 @@ Posts.prototype.createPosts = function(posts) {
       words = paragraph.split(' ');
       for (var j = 0; j < words.length; j++) {
         string += words[j] + " ";
-        if (j !== 0 &&  curCharCount > maxCharsPerLine) {
+        curCharCount += words[j].length;
+        if (curCharCount >= maxCharsPerLine) {
           string += '\n';
           curCharCount = 0;
         }
-        curCharCount += words[j].length;
       }
       string += '\n\n';
     });
