@@ -19,7 +19,7 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.panelWidth = 100;
   this.panelHeight = 220;
 
-  this.textColor = new THREE.Color(0x3ca95a)
+  this.textColor = new THREE.Color(0x00ff00)
   this.cutoffHoverPoint = this.panelHeight/2 + 10;
 
   //point at which if user hovers off panel, it wont fly back to place
@@ -50,7 +50,7 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.originalRotation = this.panel.rotation.clone();
   this.panel.position.y = this.originalHeight;
 
-  this.blog.position.set(-this.panelWidth/2 + this.textMargin , this.originalHeight, .1);
+  this.blog.position.set(-this.panelWidth/2 + this.textMargin , this.originalHeight, .01);
   this.blog.scale.set(4, 4, 1)
   var tagline = G.textFactory.createMesh(tag, {
     color: this.textColor

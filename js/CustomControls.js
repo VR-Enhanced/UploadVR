@@ -4,7 +4,7 @@ G.userHeight = 50;
 CustomControls = (function() {
   function CustomControls() {
     G.speed = 1000;
-    var userStartZ = 0;
+    var userStartZ = 600;
     var vrInput;
     var onVRDevices = function(devices) {
 
