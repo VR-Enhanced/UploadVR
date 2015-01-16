@@ -16,21 +16,29 @@ function Post(content, position, imageURL, videoURL) {
   this.panelColor = new THREE.Color(0x300042)
 
   this.panelWidth = 100;
-  this.panelHeight = 400;
+  this.panelHeight = 200;
 
+  //point at which if user hovers off panel, it wont fly back to place
+  this.cutoffHoverPoint = this.panelHeight/2 + this.originalHeight;
+  console.log("cutoff point", this.cutoffHoverPoint)
   this.distanceFromUser = 100
   this.blog = G.textFactory.createMesh(content, {
     color: new THREE.Color(0x00ff00)
   })
   this.blog.frustumCulled = false
   this.videoURL = videoURL;
-  var mat = new THREE.MeshBasicMaterial({
+
+
+
+
+
+  var panelMaterial = new THREE.MeshBasicMaterial({
     color: this.panelColor,
     transparent: true,
     opacity: this.originalPanelOpacity,
     side: THREE.DoubleSide
   });
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(this.panelWidth, this.panelHeight), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(this.panelWidth, this.panelHeight), panelMaterial)
   this.panel.renderDepth = 9
   this.panel.position.copy(position);
   scene.add(this.panel)
@@ -88,7 +96,7 @@ function Post(content, position, imageURL, videoURL) {
   scene.add(this.skyImage)
   this.panel.hoverOver = function() {
     //fade old Image
-    if (G.hoveredPost) {
+    if (G.hoveredPost && this.outOfPlace) {
       G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalPanelOpacity, G.hoveredPost.originalImageOpacity);
       //the old post is a video, we want to stop that!
       if (G.hoveredPost.video) {
@@ -106,21 +114,24 @@ function Post(content, position, imageURL, videoURL) {
 
 
   this.panel.hoverOut = function() {
+    if(G.objectControls.intersectedPoint.y > this.cutoffHoverPoint){
+      return;
+    }
     this.hover(this.originalHeight, this.originalPanelOpacity, this.hoveredImageOpacity)
     if (!this.flying) {
-      this.fly(this.originalPosition, this.originalRotation)
+      this.fly(this.originalPosition, this.originalRotation, false)
     }
   }.bind(this);
 
   this.panel.select = function() {
     var target = G.customControls.camObject().clone().translateZ(-this.distanceFromUser);
     target.translateX(this.xTranslation);
-    this.fly(target.position, target.rotation)
+    this.fly(target.position, target.rotation, true)
   }.bind(this);
 
 }
 
-Post.prototype.fly = function(position, rotation) {
+Post.prototype.fly = function(position, rotation, newPlace) {
   var i = {
     x: this.panel.position.x,
     z: this.panel.position.z,
@@ -145,6 +156,8 @@ Post.prototype.fly = function(position, rotation) {
   }.bind(this)).start();
   flyTween.onComplete(function() {
     this.flying = false;
+    //prevents unwanted snapping
+    this.outOfPlace = newPlace;
   }.bind(this));
 
 }
