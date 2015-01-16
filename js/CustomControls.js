@@ -1,10 +1,10 @@
 var CustomControls;
 G.userHeight = 50;
+G.userStartZ = 600;
 
 CustomControls = (function() {
   function CustomControls() {
     G.speed = 1000;
-    var userStartZ = 600;
     var vrInput;
     var onVRDevices = function(devices) {
 
@@ -25,14 +25,14 @@ CustomControls = (function() {
     };
 
     if (navigator.getVRDevices !== undefined) {
-      this.setPosition(new THREE.Vector3(0, G.userHeight, userStartZ))
+      this.setPosition(new THREE.Vector3(0, G.userHeight, G.userStartZ))
       navigator.getVRDevices().then(onVRDevices);
 
 
     } else {
       G.pointerLock = true;
       G.controls = new THREE.PointerLockControls(camera);
-      this.setPosition(new THREE.Vector3(0, G.userHeight, userStartZ))
+      this.setPosition(new THREE.Vector3(0, G.userHeight, G.userStartZ))
       scene.add(G.controls.getObject());
       document.addEventListener('click', function(event) {
         if (G.controls.enabled) {
