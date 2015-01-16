@@ -55,7 +55,7 @@ Posts.prototype.createPosts = function(posts) {
     words = post.title.split(' ');
     for (var j = 0; j < words.length; j++) {
       string += words[j] + " ";
-      if (curCharCount >= maxCharsPerLine) {
+      if (curCharCount > maxCharsPerLine) {
         string += "\n";
         curCharCount = 0;
       }
@@ -64,6 +64,7 @@ Posts.prototype.createPosts = function(posts) {
     curCharCount = 0;
     string += '\n\n\n';
     _.each(post.paragraphs, function(paragraph) {
+      curCharCount = 0;
       words = paragraph.split(' ');
       for (var j = 0; j < words.length; j++) {
         string += words[j] + " ";

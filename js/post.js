@@ -6,7 +6,7 @@ function Post(content, position, imageURL, videoURL) {
   this.originalImageOpacity = 0.0;
   this.hoveredImageOpacity = 1.0;
 
-  this.originalPanelOpacity = 0.5
+  this.originalPanelOpacity = 0.6
   this.hoveredPanelOpacity = 0.9;
 
   this.originalHeight = G.userHeight/2;
@@ -14,7 +14,7 @@ function Post(content, position, imageURL, videoURL) {
 
   this.panelWidth = 1100;
 
-  this.distanceFromUser = 900
+  this.distanceFromUser = 1100
   this.blog = G.textFactory.createMesh(content, {
     color: new THREE.Color(0x00ff00)
   })
@@ -116,7 +116,6 @@ function Post(content, position, imageURL, videoURL) {
     target.translateX(220);
     this.fly(target.position, target.rotation)
   }.bind(this);
-
 
 }
 
