@@ -54,11 +54,11 @@ function Post(content, tag, position, imageURL, videoURL) {
     color: this.textColor
   });
   this.panel.add(tagline);
-  tagline.position.set(-this.panelWidth / 2, this.cutoffHoverPoint, 10)
-  tagline.scale.multiplyScalar(17)
+  tagline.position.set(-this.panelWidth / 2 - 15, this.cutoffHoverPoint, 10)
+  tagline.scale.multiplyScalar(30)
 
 
-  G.objectControls.add(this.panel);
+  G.objectControls.add(this.panel)
 
 
   var imageMaterial;
