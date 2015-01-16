@@ -1,4 +1,4 @@
-function Post(content, position, imageURL, videoURL) {
+function Post(content, tag, position, imageURL, videoURL) {
 
 
   var self = this;
@@ -18,11 +18,13 @@ function Post(content, position, imageURL, videoURL) {
   this.panelWidth = 100;
   this.panelHeight = 111;
 
+  this.textColor = new THREE.Color(0x3ca95a)
+
   //point at which if user hovers off panel, it wont fly back to place
   this.cutoffHoverPoint = this.panelHeight/2 + this.originalHeight;
   this.distanceFromUser = 100
   this.blog = G.textFactory.createMesh(content, {
-    color: new THREE.Color(0x00ff00)
+    color: this.textColor
   })
   this.blog.frustumCulled = false
   this.videoURL = videoURL;
@@ -48,6 +50,12 @@ function Post(content, position, imageURL, videoURL) {
 
   this.blog.position.set(-this.panelWidth/2 + this.textMargin , this.originalHeight, .1);
   this.blog.scale.set(4, 4, 1)
+  var tagline = G.textFactory.createMesh(tag, {
+    color: this.textColor
+  });
+  this.panel.add(tagline);
+  tagline.position.set(-this.panelWidth/2, this.cutoffHoverPoint, 10)
+  tagline.scale.multiplyScalar(17)
 
 
   G.objectControls.add(this.panel);
@@ -95,7 +103,7 @@ function Post(content, position, imageURL, videoURL) {
   scene.add(this.skyImage)
   this.panel.hoverOver = function() {
     //fade old Image
-    if (G.hoveredPost && this.outOfPlace) {
+    if (G.hoveredPost) {
       G.hoveredPost.hover(G.hoveredPost.originalHeight, G.hoveredPost.originalPanelOpacity, G.hoveredPost.originalImageOpacity);
       //the old post is a video, we want to stop that!
       if (G.hoveredPost.video) {

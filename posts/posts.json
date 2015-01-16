@@ -7,6 +7,7 @@
       "author": "Will Mason",
       "date": "01/14/15",
       "imageURL": "blogphotos/zspace.jpg",
+      "tagline": "zSpace",
       "paragraphs": [
         "In the wake of this year's CES, one thing was made completely clear: 2015 will be the year that VR and consumers finally become fully acquainted. Of course, the early focus for VR has been on the gaming scene, but those who are following the industry are aware of the power it has to transform our lives in many other ways, including productivity and our education.",
         "One of the company's working in that particular realm is zSpace, who have developed a revolutionary desktop VR solution specifically crafted for the classroom. The company has developed a platform that they believe will completely transform the way our children learn in the classroom. By making learning experiences that are as engaging as they are immersive, zSpace hopes to get students more interested in continuing to learn about the subjects they are studying, which they believe will translate to a greater depth in student understanding.",
@@ -32,6 +33,7 @@
        "author": "Matthew Tunrdrup",
        "date": "011/14/14",
        "imageURL": "blogphotos/unreal.jpg",
+       "tagline": "Gear VR",
        "paragraphs": [
        "When Samsung announced the Gear VR was going to be released in early December, one of the first questions on many people's minds was: ‘so what are we going to be able to play?' Thankfully that, too, was revealed to us at the developers conference. Here is a preview of what all is to come:",
        "TEMPLE RUN VR",
@@ -54,6 +56,7 @@
       "title": "Epic Games Deliver Unreal Experiences in VR, UE4 Positioned to be Premiere Platform for VR Development",
       "author": "Will Mason",
       "date": "01/14/2015",
+      "tagline": "Unreal",
       "imageURL": "blogphotos/unreal.jpg",
       "paragraphs": [
         "Here at the Upload Journal, we talk a lot about Virtual Reality's uses beyond gaming. The potentials for this platform are truly limited only by our imaginations. This all being said, it is undeniable that games will play a massive role (if perhaps not the most massive role) in helping VR take off as a transformative new medium. Even Palmer Luckey himself has said that games are going to be what the industry is initially built on. It is clear that delivering incredible gaming experiences is a priority, and after going through the Crescent Bay demo it was clear that Oculus wanted to highlight one development platform for VR gaming, the Unreal Engine.",
@@ -69,6 +72,7 @@
       "title": "Magic Leap Collaborating with Avatar and Lord of the Rings Special Effects Team, Weta Workshop, on FPS for the Device",
       "author": "Will Mason",
       "date": "02/18/15",
+      "tagline": "Magic Leap",
       "imageURL": "blogphotos/magic-leap.jpg",
       "paragraphs": [
         "When a sleeping giant snores, it can be heard across the planes. The same can be said for the ever-mysterious startup Magic Leap. Since being thrust into the public consciousness in October with a massive $542M funding round, Magic Leap has continued to operate largely in the shadows, yet clues to their plans continue to leak out across the internet; the latest of which seems to give a little more insight as to what we might expect from the device.",
@@ -90,6 +94,7 @@
       "author": "Will Mason",
       "date": "01/06/15",
       "imageURL": "blogphotos/crescent.jpg",
+      "tagline": "Crescent Bay",
       "paragraphs": [
         "The International CES is now officially underway, so of course I woke up early and made a bee-line for the Oculus booth, which is thoroughly impressive in and of itself. A two story well appointed behemoth, it's clear that Oculus is a centerpiece at this year's CES. But enough about the booth, lets get right to the thing we have all been so excited to see, the new Crescent Bay.",
         "This was my first time getting the chance to try on the new prototype, which many are speculating is the last version before CV1, so I was obviously super pumped to try it on and I will tell you right now, I hadn't even prepared myself for the level of epicness that I witnessed within the demo. It was seriously that good, and if there are any skeptics still out there, be ready to have your skepticism completely washed away.",
