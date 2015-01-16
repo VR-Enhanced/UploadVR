@@ -11,17 +11,18 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.originalPanelOpacity = 0.6
   this.hoveredPanelOpacity = 0.9;
 
-  this.originalHeight = position.y + 15;
-  this.hoveredHeight = this.originalHeight + 15;
+  this.originalHeight = position.y -50 ;
+  this.hoveredHeight = this.originalHeight + 100;
+  this.blogHoveredHeightFactor = .2
   this.panelColor = new THREE.Color(0x300042)
 
   this.panelWidth = 100;
-  this.panelHeight = 111;
+  this.panelHeight = 220;
 
   this.textColor = new THREE.Color(0x3ca95a)
+  this.cutoffHoverPoint = this.panelHeight/2 + 10;
 
   //point at which if user hovers off panel, it wont fly back to place
-  this.cutoffHoverPoint = this.panelHeight/2 + this.originalHeight;
   this.distanceFromUser = 100
   this.blog = G.textFactory.createMesh(content, {
     color: this.textColor
@@ -47,6 +48,7 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.panel.lookAt(new THREE.Vector3());
   this.originalPosition = this.panel.position.clone();
   this.originalRotation = this.panel.rotation.clone();
+  this.panel.position.y = this.originalHeight;
 
   this.blog.position.set(-this.panelWidth/2 + this.textMargin , this.originalHeight, .1);
   this.blog.scale.set(4, 4, 1)
@@ -172,7 +174,7 @@ Post.prototype.fly = function(position, rotation, newPlace) {
 Post.prototype.hover = function(pos, opacity, imageOpacity) {
   if (!this.skyImage) return
   var i = {
-    y: this.blog.position.y,
+    y: this.panel.position.y,
     opacity: this.panel.material.opacity,
     imageOpacity: this.skyImage.material.opacity
   };
@@ -186,7 +188,7 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
   to(f, 1300).
   onUpdate(function() {
     this.panel.position.y = i.y;
-    this.blog.position.y = i.y;
+    this.blog.position.y = i.y * this.blogHoveredHeightFactor;
     this.panel.material.opacity = i.opacity;
     this.skyImage.material.opacity = i.imageOpacity
   }.bind(this)).start();
