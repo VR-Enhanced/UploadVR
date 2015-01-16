@@ -16,6 +16,8 @@ function Background() {
   scene.add(this.starGroup.mesh)
 
 
+
+
 }
 
 Background.prototype.generateStars = function() {

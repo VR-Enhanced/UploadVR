@@ -30,6 +30,8 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.blog.frustumCulled = false
   this.videoURL = videoURL;
 
+  this.targetQuaternion = new THREE.Quaternion();
+
 
 
   var panelMaterial = new THREE.MeshBasicMaterial({
@@ -51,7 +53,8 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.blog.position.set(-this.panelWidth / 2 + this.textMargin, this.originalHeight, .01);
   this.blog.scale.set(4, 4, 1)
   var tagline = G.textFactory.createMesh(tag, {
-    color: this.textColor
+    color: this.textColor,
+    side: THREE.DoubleSide
   });
   this.panel.add(tagline);
   tagline.position.set(-this.panelWidth / 2 - 15, this.cutoffHoverPoint, 10)
@@ -124,7 +127,7 @@ function Post(content, tag, position, imageURL, videoURL) {
       return;
     }
     this.hover(this.originalHeight, this.originalPanelOpacity, this.hoveredImageOpacity)
-    if (!this.flying) {
+    if (!this.flying && this.outOfPlace) {
       this.fly(this.originalPosition, this.originalRotation, false)
     }
   }.bind(this);
@@ -138,27 +141,25 @@ function Post(content, tag, position, imageURL, videoURL) {
 }
 
 Post.prototype.fly = function(position, rotation, newPlace) {
+  this.targetQuaternion.setFromEuler(rotation);
   var i = {
     x: this.panel.position.x,
     z: this.panel.position.z,
-    rotY: this.panel.rotation.y,
-    rotX: this.panel.rotation.x,
-    rotZ: this.panel.rotation.z,
+    t: 0
   }
 
   var f = {
     x: position.x,
     z: position.z,
-    rotY: rotation.y,
-    rotX: rotation.x,
-    rotZ: rotation.z,
+    t: 1
   }
   this.flying = true;
   var flyTween = new TWEEN.Tween(i).
   to(f, 1000).
   onUpdate(function() {
     this.panel.position.set(i.x, this.panel.position.y, i.z);
-    this.panel.rotation.set(0, i.rotY, 0);
+    this.panel.quaternion.slerp(this.targetQuaternion, i.t);
+
   }.bind(this)).start();
   flyTween.onComplete(function() {
     this.flying = false;
