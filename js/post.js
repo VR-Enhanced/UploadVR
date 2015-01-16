@@ -11,34 +11,34 @@ function Post(content, position, imageURL, videoURL) {
 
   this.originalHeight = G.userHeight/2;
   this.hoveredHeight = G.userHeight;
+  this.panelColor = new THREE.Color(0x300042)
 
-  this.panelWidth = 1100;
+  this.panelWidth = 10000;
+  this.panelHeight = 10000;
 
-  this.distanceFromUser = 1100
+  this.distanceFromUser = 100
   this.blog = G.textFactory.createMesh(content, {
     color: new THREE.Color(0x00ff00)
   })
   this.blog.frustumCulled = false
   this.videoURL = videoURL;
   var mat = new THREE.MeshBasicMaterial({
-    color: 0x150026,
+    color: this.panelColor,
     transparent: true,
     opacity: this.originalPanelOpacity,
     side: THREE.DoubleSide
   });
-  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(this.panelWidth, 10000), mat)
+  this.panel = new THREE.Mesh(new THREE.PlaneBufferGeometry(this.panelWidth, this.panelHeight), mat)
   this.panel.renderDepth = 9
   this.panel.position.copy(position);
-  // this.panel.scale.set(1, 20, 1);
   scene.add(this.panel)
   this.panel.add(this.blog);
   this.panel.lookAt(new THREE.Vector3());
   this.originalPosition = this.panel.position.clone();
   this.originalRotation = this.panel.rotation.clone();
-  this.blog.scale.set(40, 40, 1)
 
   var margin = 100;
-  this.blog.position.set(-this.panelWidth/2 + margin , this.originalHeight, .1);
+  this.blog.position.set(-this.panelWidth/2 + margin , this.originalHeight, 1);
 
 
   G.objectControls.add(this.panel);
@@ -76,7 +76,6 @@ function Post(content, position, imageURL, videoURL) {
   var imageScale = 1.0;
   var radius = 100000;
   //SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
-  // var geo = new THREE.SphereGeometry(radius, 64, 16, Math.PI - .6, Math.PI * 1.8, 0.4, Math.PI * 0.55);
   var geo = new THREE.SphereGeometry(radius, 64, 16, -Math.PI * 1.2, Math.PI * 1.8, 0.4, Math.PI * 0.55);
   this.skyImage = new THREE.Mesh(geo, imageMaterial);
   // this.skyImage.position.z = -15000
@@ -162,7 +161,7 @@ Post.prototype.hover = function(pos, opacity, imageOpacity) {
     imageOpacity: imageOpacity
   };
   var hoverTween = new TWEEN.Tween(i).
-  to(f, 700).
+  to(f, 1300).
   onUpdate(function() {
     this.panel.position.y = i.y;
     this.blog.position.y = i.y;
