@@ -135,6 +135,8 @@ function Post(content, tag, position, imageURL, videoURL) {
   this.panel.select = function() {
     var target = G.customControls.camObject().clone().translateZ(-this.distanceFromUser);
     target.translateX(this.xTranslation);
+    target.rotation.x = 0;
+    target.rotation.z = 0;
     this.fly(target.position, target.rotation, true)
   }.bind(this);
 

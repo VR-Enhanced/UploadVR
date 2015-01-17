@@ -95,7 +95,7 @@ Background.prototype.generateLogo = function() {
       }
       this.updateLogo = false;
     }.bind(this));
-  }.bind(this), 2000);
+  }.bind(this), 3000);
 
 }
 

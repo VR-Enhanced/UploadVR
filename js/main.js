@@ -53,11 +53,11 @@
 		G.customControls = new CustomControls();
 		G.objectControls = new ObjectControls(camera);
 
-		// effect = new THREE.VREffect(renderer, function(msg) {
-		// 	if (msg !== undefined) {
-		// 		console.log(msg)
-		// 	}
-		// });
+		effect = new THREE.VREffect(renderer, function(msg) {
+			if (msg !== undefined) {
+				console.log(msg)
+			}
+		});
 
 
 
@@ -98,8 +98,8 @@
 		requestAnimationFrame(animate);
 		water.material.uniforms.time.value += timeInc;
 		water.render();
-		// effect.render(scene, camera);
-		renderer.render(scene, camera);
+		effect.render(scene, camera);
+		// renderer.render(scene, camera);
 		G.customControls.update();
 		G.objectControls.update();
 		TWEEN.update();
@@ -110,8 +110,8 @@
 	function onResize() {
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
-		// effect.setSize(window.innerWidth, window.innerHeight);
-		renderer.setSize(window.innerWidth, window.innerHeight);
+		effect.setSize(window.innerWidth, window.innerHeight);
+		// renderer.setSize(window.innerWidth, window.innerHeight);
 
 	}
 
